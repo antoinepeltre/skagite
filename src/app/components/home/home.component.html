@@ -19,37 +19,14 @@
             <h2 class="text-3xl font-extrabold text-[#1E40AF] mb-4">Nos Chambres</h2>
             <hr class="border-t-2 border-[#E2E8F0] mb-8">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Chambre 1 -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <h3 class="text-xl font-semibold text-center p-4">Chambre Lagoon Breeze</h3>
-                    <img src="assets/rooms/1.jpg" alt="Chambre 1" class="w-full h-48 object-cover">
-                    <p class="text-gray-700 p-4">Plongez dans l'ambiance tropicale de Poé avec cette chambre lumineuse,
-                        offrant une vue imprenable sur le lagon. Profitez de la brise légère qui traverse la pièce,
-                        créant une atmosphère calme et apaisante. Un véritable havre de paix pour se ressourcer après
-                        une journée d'aventure.</p>
-                </div>
-
-                <!-- Chambre 2 -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <h3 class="text-xl font-semibold text-center p-4">Chambre Coral Reef</h3>
-                    <img src="assets/rooms/2.jpeg" alt="Chambre 2" class="w-full h-48 object-cover">
-                    <p class="text-gray-700 p-4">Offrez-vous un séjour au cœur de la beauté naturelle de Poé avec cette
-                        chambre inspirée par les récifs coralliens voisins. Les couleurs douces et apaisantes, combinées
-                        à une décoration qui rappelle les fonds marins, vous offriront une ambiance sereine et
-                        rafraîchissante. Idéale pour ceux qui cherchent à se détendre dans un cadre idyllique.</p>
-                </div>
-
-                <!-- Chambre 3 -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <h3 class="text-xl font-semibold text-center p-4">Chambre Sunset Retreat</h3>
-                    <img src="assets/rooms/3.jpeg" alt="Chambre 3" class="w-full h-48 object-cover">
-                    <p class="text-gray-700 p-4">Découvrez les magnifiques couchers de soleil de Poé depuis cette
-                        chambre spacieuse et élégante. Située sur le côté ouest, cette chambre vous permet de profiter
-                        d'une vue spectaculaire sur l'océan Pacifique. Avec son ambiance chaleureuse et relaxante, c'est
-                        l'endroit parfait pour savourer les derniers rayons du soleil avant la nuit.</p>
+                <div *ngFor="let room of rooms" class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <h3 class="text-xl font-semibold text-center p-4">{{ room.name }}</h3>
+                    <img [src]="room.imageUrl" alt="{{ room.name }}" class="w-full h-48 object-cover">
+                    <p class="text-gray-700 p-4">{{ room.description }}</p>
                 </div>
             </div>
         </section>
+        
 
         <!-- Section 3: Localisation -->
         <section class="mb-16">

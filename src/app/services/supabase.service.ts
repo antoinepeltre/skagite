@@ -14,14 +14,10 @@ export class SupabaseService {
     this.supabase = createClient(this.supabaseUrl, this.supabaseKey);
   }
 
-  
-  async getData(table: string) {
-    const { data, error } = await this.supabase
-      .from(table)
-      .select('*');
-    if (error) {
-      throw error;
-    }
-    return data;
+  get client(): SupabaseClient {
+    return this.supabase;
   }
+
+  
+
 }
