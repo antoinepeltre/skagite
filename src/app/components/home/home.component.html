@@ -1,0 +1,74 @@
+<app-header class="fixed top-0 left-0 right-0 z-10 bg-white shadow-md"></app-header>
+
+<div class="container mx-auto px-4 py-8 pt-20 flex"> <!-- Ajouté `pt-20` pour compenser le header -->
+    <!-- Contenu principal à gauche -->
+    <div class="w-2/3">
+        <!-- Section 1: Description du gîte -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-extrabold text-[#1E40AF] mb-4">Description du Gîte</h2>
+            <hr class="border-t-2 border-[#E2E8F0] mb-8">
+            <p class="text-lg text-[#4A5568] leading-relaxed text-left">
+                Bienvenue au Skagîte, un havre de paix niché au cœur de Poé, en Nouvelle-Calédonie, offrant un cadre idyllique pour se détendre et profiter de la nature environnante. Vous serez bercé par les vagues et le vent, dans un environnement propice à la relaxation et au bien-être.
+            </p>
+        </section>
+
+        <!-- Section 2: Nos Chambres -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-extrabold text-[#1E40AF] mb-4">Nos Chambres</h2>
+            <hr class="border-t-2 border-[#E2E8F0] mb-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Chambre 1 -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <h3 class="text-xl font-semibold text-center p-4">Chambre Lagoon Breeze</h3>
+                    <img src="assets/rooms/1.jpg" alt="Chambre 1" class="w-full h-48 object-cover">
+                    <p class="text-gray-700 p-4">Plongez dans l'ambiance tropicale de Poé avec cette chambre lumineuse, offrant une vue imprenable sur le lagon. Profitez de la brise légère qui traverse la pièce, créant une atmosphère calme et apaisante. Un véritable havre de paix pour se ressourcer après une journée d'aventure.</p>
+                </div>
+
+                <!-- Chambre 2 -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <h3 class="text-xl font-semibold text-center p-4">Chambre Coral Reef</h3>
+                    <img src="assets/rooms/2.jpeg" alt="Chambre 2" class="w-full h-48 object-cover">
+                    <p class="text-gray-700 p-4">Offrez-vous un séjour au cœur de la beauté naturelle de Poé avec cette chambre inspirée par les récifs coralliens voisins. Les couleurs douces et apaisantes, combinées à une décoration qui rappelle les fonds marins, vous offriront une ambiance sereine et rafraîchissante. Idéale pour ceux qui cherchent à se détendre dans un cadre idyllique.</p>
+                </div>
+
+                <!-- Chambre 3 -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <h3 class="text-xl font-semibold text-center p-4">Chambre Sunset Retreat</h3>
+                    <img src="assets/rooms/3.jpeg" alt="Chambre 3" class="w-full h-48 object-cover">
+                    <p class="text-gray-700 p-4">Découvrez les magnifiques couchers de soleil de Poé depuis cette chambre spacieuse et élégante. Située sur le côté ouest, cette chambre vous permet de profiter d'une vue spectaculaire sur l'océan Pacifique. Avec son ambiance chaleureuse et relaxante, c'est l'endroit parfait pour savourer les derniers rayons du soleil avant la nuit.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Localisation -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-extrabold text-[#1E40AF] mb-4">Notre Localisation</h2>
+            <hr class="border-t-2 border-[#E2E8F0] mb-8">
+            <p class="text-lg text-[#4A5568] leading-relaxed mb-4">Le Skagîte est situé à Poé, en Nouvelle-Calédonie, à proximité des plages magnifiques et des sites naturels remarquables. Découvrez notre emplacement sur la carte ci-dessous et planifiez votre visite :</p>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11797.081536325304!2d166.3701229!3d-22.1592156!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sfr!4v1695229286554!5m2!1sfr!2sfr" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </section>
+
+        <!-- Section 4: Nos Avis -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-extrabold text-[#1E40AF] mb-4">Nos Avis</h2>
+            <hr class="border-t-2 border-[#E2E8F0] mb-8">
+            <div class="space-y-6">
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md">
+                    <p class="text-lg text-gray-700">"Un séjour inoubliable ! Le gîte est magnifique et bien situé. Les chambres sont très confortables et l’accueil est chaleureux. Nous reviendrons sans hésiter !" - Marie et Paul</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md">
+                    <p class="text-lg text-gray-700">"La vue sur le lagon depuis la chambre était incroyable. Un véritable paradis pour se détendre et profiter de la beauté de la nature. Je recommande vivement." - Jean et Sophie</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md">
+                    <p class="text-lg text-gray-700">"Le Skagîte est un lieu de rêve. Chaque détail est pensé pour rendre le séjour agréable. Nous avons adoré chaque minute !" - Alex et Emilie</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Composant de réservation à droite -->
+    <div class="w-1/3 fixed top-16 right-0 bg-white p-6 shadow-lg border-l border-[#E2E8F0]">
+        <app-reservation></app-reservation>
+    </div>
+</div>
+

@@ -1,0 +1,21 @@
+<!-- Formulaire de réservation -->
+<h3 class="text-xl font-semibold mb-4">Réservez Maintenant</h3>
+<form>
+    <div class="mb-4">
+        <label for="checkin" class="block text-gray-700">Date d'arrivée</label>
+        <input type="date" id="checkin" name="checkin" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+    </div>
+    <div class="mb-4">
+        <label for="checkout" class="block text-gray-700">Date de départ</label>
+        <input type="date" id="checkout" name="checkout" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+    </div>
+    <div class="mb-4">
+        <label for="room" class="block text-gray-700">Sélectionnez votre chambre</label>
+        <select id="room" name="room" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+            <option value="lagoon_breeze">Chambre Lagoon Breeze</option>
+            <option value="coral_reef">Chambre Coral Reef</option>
+            <option value="sunset_retreat">Chambre Sunset Retreat</option>
+        </select>
+    </div>
+    <button type="submit" class="w-full bg-orange-400 text-white py-2 rounded-lg">Réserver</button>
+</form>
