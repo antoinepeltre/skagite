@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Skagite
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.1.
@@ -25,3 +26,7 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+=======
+# skagite
+Application de gestion de réservation de gîte en Nouvelle-Calédonie.
+>>>>>>> 9e2e519d4e2e9b0744e9e226233ed73b7efef1e9
