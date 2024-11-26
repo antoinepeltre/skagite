@@ -1,21 +1,49 @@
-<!-- Formulaire de réservation -->
-<h3 class="text-xl font-semibold mb-4">Réservez Maintenant</h3>
-<form>
-    <div class="mb-4">
-        <label for="checkin" class="block text-gray-700">Date d'arrivée</label>
-        <input type="date" id="checkin" name="checkin" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-    </div>
-    <div class="mb-4">
-        <label for="checkout" class="block text-gray-700">Date de départ</label>
-        <input type="date" id="checkout" name="checkout" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-    </div>
-    <div class="mb-4">
-        <label for="room" class="block text-gray-700">Sélectionnez votre chambre</label>
-        <select id="room" name="room" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-            <option value="lagoon_breeze">Chambre Lagoon Breeze</option>
-            <option value="coral_reef">Chambre Coral Reef</option>
-            <option value="sunset_retreat">Chambre Sunset Retreat</option>
-        </select>
-    </div>
-    <button type="submit" class="w-full bg-orange-400 text-white py-2 rounded-lg">Réserver</button>
-</form>
+<div class="reservation-panel bg-white p-4 rounded-lg shadow-lg w-full lg:w-[350px] h-auto max-h-[calc(100vh-4rem)] mt-8 lg:mt-0 mx-auto fixed top-16 right-4 bottom-4 left-4 lg:left-auto lg:right-4 lg:top-20 overflow-y-auto">
+    <h2 class="text-2xl font-bold mb-4">Réservez votre chambre</h2>
+
+    <!-- Formulaire de réservation -->
+    <form>
+
+        <!-- Choix de la chambre -->
+        <div class="mb-4">
+            <label for="room" class="block text-sm font-semibold">Choisissez votre chambre</label>
+            <select id="room" name="room" class="w-full p-2 border rounded">
+                <option value="lagoon-breeze">Chambre Lagoon Breeze</option>
+                <option value="coral-reef">Chambre Coral Reef</option>
+                <option value="sunset-retreat">Chambre Sunset Retreat</option>
+            </select>
+        </div>
+
+        <!-- Calendrier de sélection des dates -->
+        <div class="mb-4">
+            <label for="dates" class="block text-sm font-semibold">Sélectionnez vos dates</label>
+            <mat-calendar id="dates" name="dates" class="max-w-full text-sm"></mat-calendar>
+        </div>
+
+        <!-- Nombre de personnes -->
+        <div class="mb-4">
+            <label for="people" class="block text-sm font-semibold">Nombre de personnes</label>
+            <div class="flex justify-between items-center">
+                <input type="number" id="adults" name="adults" min="1" max="2" class="w-1/3 p-2 border rounded" /> Adultes
+                <input type="number" id="children" name="children" min="0" max="1" class="w-1/3 p-2 border rounded" /> Enfant
+            </div>
+        </div>
+
+        <!-- Option lit parapluie -->
+        <div class="mb-4">
+            <label for="crib" class="block text-sm font-semibold">Lit parapluie</label>
+            <input type="checkbox" id="crib" name="crib" class="mr-2" /> Ajouter (1000 XPF)
+        </div>
+
+        <!-- Affichage du prix -->
+        <div class="mb-4">
+            <label for="price" class="block text-sm font-semibold">Prix total</label>
+            <div class="text-lg font-bold">5000 XPF</div> <!-- Affichage dynamique du prix -->
+        </div>
+
+        <!-- Bouton Réserver -->
+        <button type="submit" class="w-full p-3 bg-orange-600 text-white rounded hover:bg-orange-700">
+            Réserver
+        </button>
+    </form>
+</div>
