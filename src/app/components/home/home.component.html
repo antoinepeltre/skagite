@@ -23,10 +23,29 @@
                     <h3 class="text-xl font-semibold text-center p-4">{{ room.name }}</h3>
                     <img [src]="room.imageUrl" alt="{{ room.name }}" class="w-full h-48 object-cover">
                     <p class="text-gray-700 p-4">{{ room.description }}</p>
+
+                    <!-- Informations supplémentaires -->
+                    <div class="px-4 py-2 text-gray-600">
+                        <p><strong>Prix en semaine:</strong> {{ room.priceWeekday }} XPF / nuit</p>
+                        <p><strong>Prix le week-end:</strong> {{ room.priceWeekend }} XPF / nuit</p>
+                        <p><strong>Capacité adultes:</strong> {{ room.capacityAdults }}</p>
+                        <p><strong>Capacité enfants:</strong> {{ room.capacityChildren }}</p>
+                        <p><strong>Prix lit bébé:</strong> {{ room.cribPrice }} XPF</p>
+                    </div>
+
+                    <!-- Bouton Plus d'informations -->
+                    <div class="px-4 py-2">
+                        <button
+                            class="w-full bg-orange-500 text-white font-semibold py-2 rounded-lg mt-4 hover:bg-orange-600">
+                            Plus d'informations
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
-        
+
+
+
 
         <!-- Section 3: Localisation -->
         <section class="mb-16">
@@ -35,9 +54,11 @@
             <p class="text-lg text-[#4A5568] leading-relaxed mb-4">Le Skagîte est situé à Poé, en Nouvelle-Calédonie, à
                 proximité des plages magnifiques et des sites naturels remarquables. Découvrez notre emplacement sur la
                 carte ci-dessous et planifiez votre visite :</p>
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11797.081536325304!2d166.3701229!3d-22.1592156!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sfr!4v1695229286554!5m2!1sfr!2sfr"
-                width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <iframe class="w-full"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16189.927889369303!2d165.3804400998619!3d-21.609841181697583!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6e9d95a02ab52017%3A0xdde3d93a352562a8!2sPlage%20de%20Po%C3%A9!5e1!3m2!1sfr!2sfr!4v1732642448625!5m2!1sfr!2sfr"
+             height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+
         </section>
 
         <!-- Section 4: Nos Avis -->
@@ -64,7 +85,8 @@
     </div>
 
     <!-- Composant de réservation à droite -->
-    <div class="w-full lg:w-[350px] mt-8 lg:mt-0 fixed top-16 right-4 bottom-4 left-4 lg:left-auto lg:right-4 lg:top-20 h-auto max-h-[calc(100vh-4rem)] overflow-y-auto">
+    <div
+        class="w-full lg:w-[350px] mt-8 lg:mt-0 fixed top-16 right-4 bottom-4 left-4 lg:left-auto lg:right-4 lg:top-20 h-auto max-h-[calc(100vh-4rem)] overflow-y-auto">
         <app-reservation></app-reservation>
     </div>
 </div>

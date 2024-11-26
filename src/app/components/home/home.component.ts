@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 export class HomeComponent implements OnInit {
   rooms: Room[] = [];
 
+
   constructor(private roomService: RoomService) { }
 
   ngOnInit() {
