@@ -16,7 +16,7 @@
 
         <p-calendar [(ngModel)]="selectedDates" [inline]="true" [disabledDates]="disabledDates" selectionMode="range"
             [disabledDays]="[1]" (onSelect)="onDateChange($event)" styleClass="custom-calendar"
-            [ngModelOptions]="{standalone: true}" *ngIf="disabledDates.length > 0">
+            [ngModelOptions]="{standalone: true}" *ngIf="disabledDates.length > 0 || disabledDates.length === 0">
 
             <ng-template pTemplate="date" let-date>
                 <span [ngClass]="getDateCellClass(date)">{{ date.day }}</span>

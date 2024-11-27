@@ -107,26 +107,9 @@ export class ReservationComponent {
         date.setHours(0, 0, 0, 0);
         return date;
       });
-
-      this.cdr.detectChanges();
     });
   }
 
-  // Génère une liste de dates pour chaque lundi de l'année
-  generateMondayDates(): Date[] {
-    const mondayDates: Date[] = [];
-    const currentYear = new Date().getFullYear();
-
-    for (let month = 0; month < 12; month++) {
-      for (let day = 1; day <= 31; day++) {
-        const date = new Date(currentYear, month, day);
-        if (date.getMonth() === month && date.getDay() === 1) {
-          mondayDates.push(date);
-        }
-      }
-    }
-    return mondayDates;
-  }
 
   // Gère le changement de chambre sélectionnée
   onRoomChange(event: any): void {
