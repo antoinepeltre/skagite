@@ -12,6 +12,8 @@ import { Reservation } from '../../models/Reservation';
 import { BehaviorSubject, distinctUntilChanged, Subscription } from 'rxjs';
 import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 
 @Component({
   selector: 'app-reservation',
@@ -26,6 +28,7 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     CommonModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './reservation.component.html',
   styleUrls: ['./reservation.component.scss']
 })
@@ -95,14 +98,13 @@ export class ReservationComponent {
   loadReservedDates(roomId: number): void {
     this.reservationService.getReservedDates(roomId).then(dates => {
       const reservedAndUnavailableDates = [
-        ...dates,
-        ...this.generateMondayDates() // Ajout des dates invalides (lundi)
+        ...dates, // Ajout des dates invalides (lundi)
       ];
 
       // Mise à jour de la liste des dates désactivées
       this.disabledDates = reservedAndUnavailableDates.map(dateString => {
         const date = new Date(dateString);
-        date.setHours(12, 0, 0, 0);
+        date.setHours(0, 0, 0, 0);
         return date;
       });
 
@@ -180,6 +182,30 @@ export class ReservationComponent {
     }
     return false;
   }
+
+  getDateCellClass(date: any): string {
+    const currentDate = new Date(date.year, date.month, date.day);
+
+    if (this.isReservedDay(currentDate)) {
+      return 'reserved-day';
+    }
+
+    if (this.isNonBookableDay(currentDate)) {
+      return 'non-bookable-day';
+    }
+
+    return '';
+  }
+
+  isReservedDay(date: Date): boolean {
+    return this.disabledDates.some(d => d.getTime() === date.getTime());
+  }
+
+  isNonBookableDay(date: Date): boolean {
+    return date.getDay() === 1; // Tous les lundis
+  }
+
+
 
   // Calcule le prix total en fonction des dates sélectionnées et des options
   calculateTotalPrice(): void {

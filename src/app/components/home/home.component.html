@@ -2,10 +2,10 @@
 
 <!-- Section avec image floutée en haut -->
 <section class="relative mb-16">
-    <!-- Conteneur pour l'image -->
+    <!-- Contenu au-dessus de l'image -->
     <div class="relative w-full h-96">
         <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/430844439.jpg?k=af92c33e730f3649b6ca4ddb1e6974f3340c7a2ee1efc41c444905984c6bc91c&o=&hp=1" alt="Skagîte" class="w-full h-full object-cover filter blur-sm opacity-50">
-        <!-- Overlay pour le flou grisé -->
+        <!-- Overlay pour le flou -->
         <div class="absolute inset-0 bg-gray-800 opacity-10"></div>
     </div>
 
@@ -18,9 +18,10 @@
     </div>
 </section>
 
-<div class="container mx-auto px-4 py-8 pt-20 flex"> <!-- Ajouté `pt-20` pour compenser le header -->
+<!-- Conteneur principal -->
+<div class="container mx-auto px-4 py-8 pt-20 flex">
     <!-- Contenu principal à gauche -->
-    <div class="w-full lg:w-2/3 mr-4"> <!-- Ajustement pour l'espacement à droite -->
+    <div class="w-full lg:w-2/3 mr-4">
         <!-- Section 1: Description du gîte -->
         <section class="mb-16">
             <h2 class="text-3xl font-extrabold text-[#1E40AF] mb-4">Description du Gîte</h2>
@@ -73,8 +74,8 @@
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16189.927889369303!2d165.3804400998619!3d-21.609841181697583!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6e9d95a02ab52017%3A0xdde3d93a352562a8!2sPlage%20de%20Po%C3%A9!5e1!3m2!1sfr!2sfr!4v1732642448625!5m2!1sfr!2sfr"
              height="450" style="border:0;" allowfullscreen="" loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
-
         </section>
+
 
         <!-- Section 4: Nos Avis -->
         <section class="mb-16">
@@ -100,8 +101,8 @@
     </div>
 
     <!-- Composant de réservation à droite -->
-    <div
-        class="w-full lg:w-[350px] mt-8 lg:mt-0 fixed top-16 right-4 bottom-4 left-4 lg:left-auto lg:right-4 lg:top-20 h-auto max-h-[calc(100vh-4rem)] overflow-y-auto">
+    <div id="reservation-panel"
+        class="w-full lg:w-1/3">
         <app-reservation></app-reservation>
     </div>
 </div>
