@@ -1,5 +1,23 @@
 <app-header class="fixed top-0 left-0 right-0 z-10 bg-white shadow-md"></app-header>
 
+<!-- Section avec image floutée en haut -->
+<section class="relative mb-16">
+    <!-- Conteneur pour l'image -->
+    <div class="relative w-full h-96">
+        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/430844439.jpg?k=af92c33e730f3649b6ca4ddb1e6974f3340c7a2ee1efc41c444905984c6bc91c&o=&hp=1" alt="Skagîte" class="w-full h-full object-cover filter blur-sm opacity-50">
+        <!-- Overlay pour le flou grisé -->
+        <div class="absolute inset-0 bg-gray-800 opacity-10"></div>
+    </div>
+
+    <!-- Contenu au-dessus de l'image -->
+    <div class="absolute inset-0 flex items-center justify-center z-10 text-center text-white">
+        <div>
+            <h1 class="text-5xl font-extrabold">Skagîte</h1>
+            <p class="text-xl mt-4">Venez vous ressourcer au cœur de la nature, entre lagon cristallin et plages paradisiaques, au Skagîte !</p>
+        </div>
+    </div>
+</section>
+
 <div class="container mx-auto px-4 py-8 pt-20 flex"> <!-- Ajouté `pt-20` pour compenser le header -->
     <!-- Contenu principal à gauche -->
     <div class="w-full lg:w-2/3 mr-4"> <!-- Ajustement pour l'espacement à droite -->
@@ -43,9 +61,6 @@
                 </div>
             </div>
         </section>
-
-
-
 
         <!-- Section 3: Localisation -->
         <section class="mb-16">

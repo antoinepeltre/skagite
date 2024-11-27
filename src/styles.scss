@@ -3,6 +3,20 @@
 @tailwind components;
 @tailwind utilities;
 
-::ng-deep .mat-datepicker-popup {
-    z-index: 1000;
-  }
+/* Style pour les dates des mois adjacents (autres mois) désactivées */
+.p-datepicker td.p-datepicker-other-month.p-disabled {
+  background-color: gray !important; /* Gris pour les dates des autres mois */
+  color: green !important;
+}
+
+/* Style pour les dates désactivées du mois actuel */
+.p-datepicker td.p-disabled:not(.p-datepicker-other-month) {
+  background-color: #f7dede !important; /* Rouge clair pour les dates désactivées du mois actuel */
+  color: #d9534f !important;
+}
+
+/* Style pour les dates des autres mois non désactivées */
+.p-datepicker td.p-datepicker-other-month {
+  background-color: #f0f0f0 !important; /* Gris clair pour les dates des mois adjacents */
+  color: #9e9e9e !important;
+}
