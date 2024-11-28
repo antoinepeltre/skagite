@@ -1,0 +1,16 @@
+.font-merriweather {
+    font-family: 'Merriweather', serif;
+}
+.house-card:hover .overlay {
+    opacity: 1;
+}
+
+.gallery-item {
+    overflow: hidden;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
