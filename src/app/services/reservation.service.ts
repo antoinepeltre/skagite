@@ -65,9 +65,9 @@ export class ReservationService {
         }
         
         return dates;
-      }).flat(); // Aplatir le tableau de dates
+      }).flat();
 
-      return reservedDates; // Retourner toutes les dates réservées
+      return reservedDates;
     } catch (error) {
       console.error('Erreur lors de la récupération des réservations:', error);
       return []; // Retourner un tableau vide en cas d'erreur

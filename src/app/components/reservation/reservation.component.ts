@@ -98,7 +98,7 @@ export class ReservationComponent {
   loadReservedDates(roomId: number): void {
     this.reservationService.getReservedDates(roomId).then(dates => {
       const reservedAndUnavailableDates = [
-        ...dates, // Ajout des dates invalides (lundi)
+        ...dates,
       ];
 
       // Mise à jour de la liste des dates désactivées
