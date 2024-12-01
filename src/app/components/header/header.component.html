@@ -1,11 +1,11 @@
 <header class="bg-[#F2F0E5] px-8 py-4 flex justify-between items-center
 fixed top-0 left-0 right-0 z-10 shadow-md">
-    <h1 class="font-merriweather text-2xl font-bold text-[#4C6173]">Skagite</h1>
+    <h1 class="font-merriweather text-2xl font-bold text-[#4C6173] cursor-pointer"
+    (click)="navigateToHome()">Skagite</h1>
     <nav class="space-x-6 text-gray-700">
-        <a href="#" class="hover:underline">Notre gîte</a>
-        <a href="#" class="hover:underline">Lagoon Breeze</a>
-        <a href="#" class="hover:underline">Corals Reef</a>
-        <a href="#" class="hover:underline">Sunset Retreat</a>
+        <a href="rooms/1" class="hover:underline">Lagoon Breeze</a>
+        <a href="rooms/2" class="hover:underline">Corals Reef</a>
+        <a href="rooms/3" class="hover:underline">Sunset Retreat</a>
     </nav>
     <button class="bg-[#4C6173] text-white px-4 py-2">RÉSERVER</button>
 </header>

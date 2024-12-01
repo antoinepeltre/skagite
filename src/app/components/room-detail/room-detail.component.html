@@ -1,11 +1,8 @@
-<app-header></app-header>
-
-<body class="custom-bg font-sans bg-[#F2F0E5]">
+<div class="custom-bg font-sans bg-[#F2F0E5]" *ngIf="room">
     <div class="mx-auto">
         <!-- Full width image -->
         <div class="w-full mb-8">
-            <img src="https://cache.marriott.com/content/dam/marriott-renditions/ILPMD/ilpmd-bungalow-2010-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*"
-                alt="Lagoon Breeze" class="w-full object-cover h-[60vh]">
+            <img [src]="room.coverUrl" [alt]="room.name" class="w-full object-cover h-[60vh]">
         </div>
 
         <div class="container mx-auto py-24">
@@ -14,31 +11,22 @@
                 <div class="md:col-span-2 space-y-8">
                     <!-- Header -->
                     <header class="space-y-4">
-                        <h1 class="text-4xl font-merriweather font-bold custom-title">LAGOON BREEZE</h1>
+                        <h1 class="text-4xl font-merriweather font-bold custom-title">{{room.name}}</h1>
                     </header>
 
-                    <!-- Gallery -->
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                        <img src="https://cache.marriott.com/content/dam/marriott-renditions/ILPMD/ilpmd-deluxe-room-1999-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*"
-                            alt="Lagoon Breeze" class="w-full h-full object-cover">
-                        <img src="https://cache.marriott.com/content/dam/marriott-renditions/ILPMD/ilpmd-view-2006-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*"
-                            alt="Lagoon Breeze" class="w-full h-full object-cover">
-                        <img src="https://cache.marriott.com/content/dam/marriott-renditions/ILPMD/ilpmd-bungalows-2009-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*"
-                            alt="Lagoon Breeze" class="w-full h-full object-cover">
-                        <img src="https://cache.marriott.com/content/dam/marriott-renditions/ILPMD/ilpmd-bungalow-2017-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*"
-                            alt="Lagoon Breeze" class="w-full h-full object-cover">
+                        <img *ngFor="let picture of room.pictureUrls" [src]="picture"
+                            class="w-full h-full object-cover">
                     </div>
 
-                    <!-- Description -->
+
                     <section class="space-y-4">
                         <h2 class="text-2xl font-merriweather font-bold custom-title">Description</h2>
-                        <p class="text-gray-700">Le Lagoon Breeze est une magnifique maison de vacances située à Poé, en
-                            Nouvelle-Calédonie. Ce gîte luxueux offre une expérience unique avec des vues imprenables
-                            sur le lagon et un accès direct à la plage. Parfait pour une escapade romantique ou des
-                            vacances en famille, ce mas en Provence vous promet confort et tranquillité.</p>
+                        <p class="text-gray-700">{{room.description}}</p>
                     </section>
 
-                    <!-- Amenities -->
+
                     <section class="space-y-4">
                         <h2 class="text-2xl font-merriweather font-bold custom-title">Équipements</h2>
                         <ul class="list-disc list-inside text-gray-700">
@@ -53,7 +41,7 @@
                         </ul>
                     </section>
 
-                    <!-- Nearby Activities -->
+
                     <section class="space-y-4">
                         <h2 class="text-2xl font-merriweather font-bold custom-title">Activités à proximité</h2>
                         <ul class="list-disc list-inside text-gray-700">
@@ -67,26 +55,18 @@
                             <li>Centres de bien-être et spas</li>
                         </ul>
                     </section>
-
-                    <!-- Location -->
-                    <section class="space-y-4">
-                        <h2 class="text-2xl font-merriweather font-bold custom-title">Localisation</h2>
-                        <p class="text-gray-700">123 Rue de la Plage, Poé, Nouvelle-Calédonie</p>
-                    </section>
                 </div>
 
-                <!-- Reservation block (already styled) -->
                 <div>
-                    <!-- Placeholder for your existing reservation block -->
                     <div class="sticky top-[100px]">
-                        <!-- Insert your existing reservation block code here -->
                         <app-reservation></app-reservation>
-                        <!-- ... -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</body>
+</div>
 
-<app-footer></app-footer>
+<div *ngIf="loading" class="flex justify-center items-center h-screen bg-[#F2F0E5]">
+    <div class="loader"></div>
+</div>

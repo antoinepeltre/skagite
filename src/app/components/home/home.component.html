@@ -1,5 +1,4 @@
 <div class="bg-[#F2F0E5]">
-    <app-header class=""></app-header>
 
     <app-hero-section></app-hero-section>
 
@@ -7,52 +6,20 @@
         <h1 class="text-4xl font-merriweather font-bold mb-12 text-[#4C6173]">Nos Chambres</h1>
         <hr class="border-t-2 border-[#E2E8F0] mb-8">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Card 1 -->
-            <div class="house-card relative overflow-hidden cursor-pointer h-[450px]">
-                <img src="https://cache.marriott.com/content/dam/marriott-renditions/ILPMD/ilpmd-bungalow-2010-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*"
-                    alt="Lagoon Breeze" class="w-full h-full object-cover">
+            <div class="house-card relative overflow-hidden cursor-pointer h-[450px]" *ngFor="let room of rooms"
+            (click)="navigateToRoomDetail(room.id)">
+                <img [src]="room.coverUrl"
+                    [alt]="room.name" class="w-full h-full object-cover">
                 <div
                     class="overlay absolute inset-0 bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 flex items-center justify-center">
                     <div class="text-center text-white p-4">
-                        <h2 class="text-2xl font-merriweather font-bold">LAGOON BREEZE</h2>
+                        <h2 class="text-2xl font-merriweather font-bold">{{room.name}}</h2>
                         <p class="mt-2">A Luxury Mas in Provence</p>
                     </div>
                 </div>
                 <div class="absolute bottom-0 left-0 right-0 bg-white bg-opacity-80 p-4 text-center">
                     <p class="text-lg font-semibold text-[#4C6173]">À partir de 5000 XPF la nuit</p>
-                    <p class="mt-1 text-sm text-[#4C6173]">37m², climatisation, terrasse</p>
-                </div>
-            </div>
-            <!-- Card 2 -->
-            <div class="house-card relative overflow-hidden cursor-pointer max-h-[450px]">
-                <img src="https://cache.marriott.com/content/dam/marriott-renditions/ILPMD/ilpmd-view-2012-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*"
-                    alt="Coral Reef" class="w-full h-full object-cover">
-                <div
-                    class="overlay absolute inset-0 bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 flex items-center justify-center">
-                    <div class="text-center text-white p-4">
-                        <h2 class="text-2xl font-merriweather font-bold">CORAL REEF</h2>
-                        <p class="mt-2">A Luxury Chalet in Courchevel</p>
-                    </div>
-                </div>
-                <div class="absolute bottom-0 left-0 right-0 bg-white bg-opacity-80 p-4 text-center">
-                    <p class="text-lg font-semibold text-[#4C6173]">À partir de 5000 XPF la nuit</p>
-                    <p class="mt-1 text-sm text-[#4C6173]">37m², climatisation, terrasse</p>
-                </div>
-            </div>
-            <!-- Card 3 -->
-            <div class="house-card relative overflow-hidden cursor-pointer max-h-[450px]">
-                <img src="https://cache.marriott.com/content/dam/marriott-renditions/ILPMD/ilpmd-bungalow-2017-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*"
-                    alt="Sunset Retreat" class="w-full h-full object-cover">
-                <div
-                    class="overlay absolute inset-0 bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 flex items-center justify-center">
-                    <div class="text-center text-white p-4">
-                        <h2 class="text-2xl font-merriweather font-bold">SUNSET RETREAT</h2>
-                        <p class="mt-2">The Ocean Villa in Hossegor</p>
-                    </div>
-                </div>
-                <div class="absolute bottom-0 left-0 right-0 bg-white bg-opacity-80 p-4 text-center">
-                    <p class="text-lg font-semibold text-[#4C6173]">À partir de 5000 XPF la nuit</p>
-                    <p class="mt-1 text-sm text-[#4C6173]">37m², climatisation, terrasse</p>
+                    <p class="mt-1 text-sm text-[#4C6173]">37m², ventilateur, balcon</p>
                 </div>
             </div>
         </div>
@@ -62,7 +29,7 @@
     <div class="container px-4 mx-auto flex flex-col md:flex-row pb-[100px]">
         <!-- Bloc de gauche -->
         <div class="w-full md:w-2/3">
-            <div class="mb-8 px-4">
+            <div class="mb-8">
                 <h1 class="text-4xl font-merriweather font-bold mb-12 text-[#4C6173]">Découvrez notre gîte</h1>
                 <hr class="border-t-2 border-[#E2E8F0] mb-8">
                 <p class="text-lg">Profitez d'une expérience unique dans notre gîte, où chaque détail a été pensé pour
@@ -142,7 +109,7 @@
                         alt="Photo 4">
                 </div>
             </div>
-            <div class="space-y-8 px-4">
+            <div class="space-y-8 px-4 pt-[100px]">
                 <h1 class="text-4xl font-merriweather font-bold mb-12 text-[#4C6173]">Nos avis</h1>
                 <hr class="border-t-2 border-[#E2E8F0] mb-8">
                 <div class="space-y-6">
@@ -150,7 +117,7 @@
                 </div>
             </div>
         </div>
-        <div class="w-full md:w-1/3 sticky top-[100px]">
+        <div class="w-full md:w-1/3">
             <app-reservation class="sticky top-[100px]"></app-reservation>
         </div>
 
@@ -172,5 +139,4 @@
 
     </div>
 
-    <app-footer></app-footer>
 </div>

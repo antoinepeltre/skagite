@@ -80,7 +80,7 @@ export class ReservationComponent {
     this.isLoading = true;
     this.errorMessage = null;
     try {
-      this.rooms = await this.roomService.getRooms();
+      this.rooms = await this.roomService.fetchRooms();
       if (this.rooms) {
         this.reservationForm.patchValue({
           room: this.rooms[0].id

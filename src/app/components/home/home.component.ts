@@ -7,6 +7,7 @@ import { FooterComponent } from "../footer/footer.component";
 import { Room } from '../../models/Room';
 import { RoomService } from '../../services/room.service';
 import { CommonModule } from '@angular/common';
+import { Router } from "@angular/router";
 
 
 
@@ -21,19 +22,24 @@ export class HomeComponent implements OnInit {
   rooms: Room[] = [];
 
 
-  constructor(private roomService: RoomService) { }
+  constructor(private roomService: RoomService,
+    private router: Router) { }
 
   ngOnInit() {
-    this.getRooms();
+    this.fetchRooms();
 
   }
 
-  async getRooms() {
+  async fetchRooms() {
     try {
-      this.rooms = await this.roomService.getRooms();
+      this.rooms = await this.roomService.fetchRooms();
     } catch (error) {
       console.error('Failed to load rooms:', error);
     }
+  }
+
+  navigateToRoomDetail(roomId: number) {
+    this.router.navigate(['/rooms/', roomId]);
   }
 
 

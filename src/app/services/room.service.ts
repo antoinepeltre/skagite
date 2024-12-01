@@ -11,16 +11,33 @@ export class RoomService {
 
   constructor(private supabaseService: SupabaseService) { }
 
-  async getRooms(): Promise<Room[]> {
+  async fetchRooms(): Promise<Room[]> {
     const { data, error } = await this.supabaseService.client
       .from('rooms')
       .select('*');
   
     if (error) {
       console.error('Error fetching rooms:', error);
-      throw error;  // Lancer l'erreur si problème
+      throw error;
     }
   
     return data ? data.map(room => new Room(room)) : [];
   }
+
+  async fetchRoom(roomId: string): Promise<Room> {
+    const { data, error } = await this.supabaseService.client
+      .from('rooms')
+      .select('*')
+      .eq('id', roomId)
+      .single();
+  
+    if (error) {
+      console.error('Error fetching room:', error);
+      throw error;
+    }
+    
+    return new Room(data);
+  }
+
+
 }
