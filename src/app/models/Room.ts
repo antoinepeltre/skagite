@@ -8,6 +8,8 @@ export class Room {
     capacity_children: number;
     crib_price: number;
     image_url: string;
+    cover_url: string;
+    picture_urls: string[];
   
     constructor(data: any) {
       this.id = data.id;
@@ -19,6 +21,8 @@ export class Room {
       this.capacity_children = data.capacity_children;
       this.crib_price = data.crib_price;
       this.image_url = data.image_url;
+      this.cover_url = data.cover_url;
+      this.picture_urls = data.picture_urls || [];
     }
   
     // Getter et Setter pour 'imageUrl'
@@ -73,6 +77,24 @@ export class Room {
   
     set cribPrice(value: number) {
       this.crib_price = value;
+    }
+  
+    // Getter et Setter pour 'cribPrice'
+    get coverUrl(): string {
+      return this.cover_url;
+    }
+  
+    set coverUrl(value: string) {
+      this.cover_url = value;
+    }
+  
+    // Getter et Setter pour 'cribPrice'
+    get pictureUrls(): string[] {
+      return this.picture_urls;
+    }
+  
+    set pictureUrls(value: string[]) {
+      this.picture_urls = value;
     }
   }
   

@@ -1,0 +1,72 @@
+<div class="custom-bg font-sans bg-[#F2F0E5]" *ngIf="room">
+    <div class="mx-auto">
+        <!-- Full width image -->
+        <div class="w-full mb-8">
+            <img [src]="room.coverUrl" [alt]="room.name" class="w-full object-cover h-[60vh]">
+        </div>
+
+        <div class="container mx-auto py-24">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Main content -->
+                <div class="md:col-span-2 space-y-8">
+                    <!-- Header -->
+                    <header class="space-y-4">
+                        <h1 class="text-4xl font-merriweather font-bold custom-title">{{room.name}}</h1>
+                    </header>
+
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <img *ngFor="let picture of room.pictureUrls" [src]="picture"
+                            class="w-full h-full object-cover">
+                    </div>
+
+
+                    <section class="space-y-4">
+                        <h2 class="text-2xl font-merriweather font-bold custom-title">Description</h2>
+                        <p class="text-gray-700">{{room.description}}</p>
+                    </section>
+
+
+                    <section class="space-y-4">
+                        <h2 class="text-2xl font-merriweather font-bold custom-title">Équipements</h2>
+                        <ul class="list-disc list-inside text-gray-700">
+                            <li>37m²</li>
+                            <li>Climatisation</li>
+                            <li>Terrasse</li>
+                            <li>Wi-Fi gratuit</li>
+                            <li>TV à écran plat</li>
+                            <li>Mini-bar</li>
+                            <li>Cuisine équipée</li>
+                            <li>Service de ménage quotidien</li>
+                        </ul>
+                    </section>
+
+
+                    <section class="space-y-4">
+                        <h2 class="text-2xl font-merriweather font-bold custom-title">Activités à proximité</h2>
+                        <ul class="list-disc list-inside text-gray-700">
+                            <li>Plage à 50m</li>
+                            <li>Piscine privée</li>
+                            <li>Randonnées dans la forêt tropicale</li>
+                            <li>Excursions en bateau</li>
+                            <li>Plongée sous-marine</li>
+                            <li>Visite des îles voisines</li>
+                            <li>Golf</li>
+                            <li>Centres de bien-être et spas</li>
+                        </ul>
+                    </section>
+                </div>
+
+                <div>
+                    <div class="sticky top-[100px]">
+                        <app-reservation></app-reservation>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="loading" class="flex justify-center items-center h-screen bg-[#F2F0E5]">
+    <div class="loader"></div>
+</div>

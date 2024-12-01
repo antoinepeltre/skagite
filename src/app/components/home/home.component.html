@@ -1,110 +1,142 @@
-<app-header class="fixed top-0 left-0 right-0 z-10 bg-white shadow-md"></app-header>
+<div class="bg-[#F2F0E5]">
 
-<!-- Section avec image floutée en haut -->
-<section class="relative mb-16">
-    <!-- Contenu au-dessus de l'image -->
-    <div class="relative w-full h-96">
-        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/430844439.jpg?k=af92c33e730f3649b6ca4ddb1e6974f3340c7a2ee1efc41c444905984c6bc91c&o=&hp=1" alt="Skagîte" class="w-full h-full object-cover filter blur-sm opacity-50">
-        <!-- Overlay pour le flou -->
-        <div class="absolute inset-0 bg-gray-800 opacity-10"></div>
-    </div>
+    <app-hero-section></app-hero-section>
 
-    <!-- Contenu au-dessus de l'image -->
-    <div class="absolute inset-0 flex items-center justify-center z-10 text-center text-white">
-        <div>
-            <h1 class="text-5xl font-extrabold">Skagîte</h1>
-            <p class="text-xl mt-4">Venez vous ressourcer au cœur de la nature, entre lagon cristallin et plages paradisiaques, au Skagîte !</p>
+    <div class="container mx-auto py-16 px-4">
+        <h1 class="text-4xl font-merriweather font-bold mb-12 text-[#4C6173]">Nos Chambres</h1>
+        <hr class="border-t-2 border-[#E2E8F0] mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="house-card relative overflow-hidden cursor-pointer h-[450px]" *ngFor="let room of rooms"
+            (click)="navigateToRoomDetail(room.id)">
+                <img [src]="room.coverUrl"
+                    [alt]="room.name" class="w-full h-full object-cover">
+                <div
+                    class="overlay absolute inset-0 bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 flex items-center justify-center">
+                    <div class="text-center text-white p-4">
+                        <h2 class="text-2xl font-merriweather font-bold">{{room.name}}</h2>
+                        <p class="mt-2">A Luxury Mas in Provence</p>
+                    </div>
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 bg-white bg-opacity-80 p-4 text-center">
+                    <p class="text-lg font-semibold text-[#4C6173]">À partir de 5000 XPF la nuit</p>
+                    <p class="mt-1 text-sm text-[#4C6173]">37m², ventilateur, balcon</p>
+                </div>
+            </div>
         </div>
     </div>
-</section>
 
-<!-- Conteneur principal -->
-<div class="container mx-auto px-4 py-8 pt-20 flex">
-    <!-- Contenu principal à gauche -->
-    <div class="w-full lg:w-2/3 mr-4">
-        <!-- Section 1: Description du gîte -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-extrabold text-[#1E40AF] mb-4">Description du Gîte</h2>
-            <hr class="border-t-2 border-[#E2E8F0] mb-8">
-            <p class="text-lg text-[#4A5568] leading-relaxed text-left">
-                Bienvenue au Skagîte, un havre de paix niché au cœur de Poé, en Nouvelle-Calédonie, offrant un cadre
-                idyllique pour se détendre et profiter de la nature environnante. Vous serez bercé par les vagues et le
-                vent, dans un environnement propice à la relaxation et au bien-être.
-            </p>
-        </section>
 
-        <!-- Section 2: Nos Chambres -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-extrabold text-[#1E40AF] mb-4">Nos Chambres</h2>
-            <hr class="border-t-2 border-[#E2E8F0] mb-8">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div *ngFor="let room of rooms" class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <h3 class="text-xl font-semibold text-center p-4">{{ room.name }}</h3>
-                    <img [src]="room.imageUrl" alt="{{ room.name }}" class="w-full h-48 object-cover">
-                    <p class="text-gray-700 p-4">{{ room.description }}</p>
-
-                    <!-- Informations supplémentaires -->
-                    <div class="px-4 py-2 text-gray-600">
-                        <p><strong>Prix en semaine:</strong> {{ room.priceWeekday }} XPF / nuit</p>
-                        <p><strong>Prix le week-end:</strong> {{ room.priceWeekend }} XPF / nuit</p>
-                        <p><strong>Capacité adultes:</strong> {{ room.capacityAdults }}</p>
-                        <p><strong>Capacité enfants:</strong> {{ room.capacityChildren }}</p>
-                        <p><strong>Prix lit bébé:</strong> {{ room.cribPrice }} XPF</p>
+    <div class="container px-4 mx-auto flex flex-col md:flex-row pb-[100px]">
+        <!-- Bloc de gauche -->
+        <div class="w-full md:w-2/3">
+            <div class="mb-8">
+                <h1 class="text-4xl font-merriweather font-bold mb-12 text-[#4C6173]">Découvrez notre gîte</h1>
+                <hr class="border-t-2 border-[#E2E8F0] mb-8">
+                <p class="text-lg">Profitez d'une expérience unique dans notre gîte, où chaque détail a été pensé pour
+                    votre confort et votre plaisir.</p>
+            </div>
+            <div class="space-y-8 pb-12">
+                <div class="flex items-start">
+                    <div class="ml-4">
+                        <h3 class="text-xl font-merriweather font-bold text-[#4C6173]">Tranquillité</h3>
+                        <p>Un cadre paisible et serein pour des moments de relaxation totale.</p>
                     </div>
+                </div>
+                <div class="flex items-start">
 
-                    <!-- Bouton Plus d'informations -->
-                    <div class="px-4 py-2">
-                        <button
-                            class="w-full bg-orange-500 text-white font-semibold py-2 rounded-lg mt-4 hover:bg-orange-600">
-                            Plus d'informations
-                        </button>
+                    <div class="ml-4">
+                        <h3 class="text-xl font-merriweather font-bold text-[#4C6173]">Coucher de soleil</h3>
+                        <p>Admirez des couchers de soleil époustouflants depuis notre terrasse.</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+
+                    <div class="ml-4">
+                        <h3 class="text-xl font-merriweather font-bold text-[#4C6173]">Équipements modernes</h3>
+                        <p>Des installations de pointe pour votre confort et commodité.</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+
+                    <div class="ml-4">
+                        <h3 class="text-xl  font-merriweather font-bold text-[#4C6173]">Nature à proximité</h3>
+                        <p>Accès direct à des sentiers de randonnée et à des paysages naturels.</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+
+                    <div class="ml-4">
+                        <h3 class="text-xl font-merriweather font-bold text-[#4C6173]">Activités variées</h3>
+                        <p>Profitez d'un large éventail d'activités de loisirs pour toute la famille.</p>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- Section 3: Localisation -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-extrabold text-[#1E40AF] mb-4">Notre Localisation</h2>
-            <hr class="border-t-2 border-[#E2E8F0] mb-8">
-            <p class="text-lg text-[#4A5568] leading-relaxed mb-4">Le Skagîte est situé à Poé, en Nouvelle-Calédonie, à
-                proximité des plages magnifiques et des sites naturels remarquables. Découvrez notre emplacement sur la
-                carte ci-dessous et planifiez votre visite :</p>
-            <iframe class="w-full"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16189.927889369303!2d165.3804400998619!3d-21.609841181697583!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6e9d95a02ab52017%3A0xdde3d93a352562a8!2sPlage%20de%20Po%C3%A9!5e1!3m2!1sfr!2sfr!4v1732642448625!5m2!1sfr!2sfr"
-             height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </section>
-
-
-        <!-- Section 4: Nos Avis -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-extrabold text-[#1E40AF] mb-4">Nos Avis</h2>
-            <hr class="border-t-2 border-[#E2E8F0] mb-8">
-            <div class="space-y-6">
-                <div class="bg-gray-50 p-6 rounded-lg shadow-md">
-                    <p class="text-lg text-gray-700">"Un séjour inoubliable ! Le gîte est magnifique et bien situé. Les
-                        chambres sont très confortables et l’accueil est chaleureux. Nous reviendrons sans hésiter !" -
-                        Marie et Paul</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 px-4">
+                <div class="gallery-item h-80">
+                    <img src="https://cache.marriott.com/content/dam/marriott-renditions/ILPMD/ilpmd-traditional-trip-3032-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*"
+                        alt="Photo 1">
                 </div>
-                <div class="bg-gray-50 p-6 rounded-lg shadow-md">
-                    <p class="text-lg text-gray-700">"La vue sur le lagon depuis la chambre était incroyable. Un
-                        véritable paradis pour se détendre et profiter de la beauté de la nature. Je recommande
-                        vivement." - Jean et Sophie</p>
+                <div class="gallery-item h-80">
+                    <img src="https://cache.marriott.com/content/dam/marriott-renditions/ILPMD/ilpmd-oro-bay-6137-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*"
+                        alt="Photo 2">
                 </div>
-                <div class="bg-gray-50 p-6 rounded-lg shadow-md">
-                    <p class="text-lg text-gray-700">"Le Skagîte est un lieu de rêve. Chaque détail est pensé pour
-                        rendre le séjour agréable. Nous avons adoré chaque minute !" - Alex et Emilie</p>
+                <div class="flex flex-col gap-1">
+                    <div class="gallery-item h-40">
+                        <img src="https://cache.marriott.com/content/dam/marriott-renditions/ILPMD/ilpmd-activities-resort-3038-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*"
+                            alt="Photo 3">
+                    </div>
+                    <div class="gallery-item h-40">
+                        <img src="https://cache.marriott.com/is/image/marriotts7prod/md-ilpmd-nautical-activities-35336:Wide-Hor?wid=1336&fit=constrain"
+                            alt="Photo 5">
+                    </div>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <div class="gallery-item h-40">
+                        <img src="https://cache.marriott.com/is/image/marriotts7prod/md-ilpmd-bike-tour-23101:Wide-Hor?wid=1336&fit=constrain"
+                            alt="Photo 3">
+                    </div>
+                    <div class="gallery-item h-40">
+                        <img src="https://cache.marriott.com/is/image/marriotts7prod/md-ilpmd-nautical-activities-3-40289:Wide-Hor?wid=1336&fit=constrain"
+                            alt="Photo 5">
+                    </div>
+                </div>
+                <div class="gallery-item h-40 md:h-80">
+                    <img src="https://cache.marriott.com/content/dam/marriott-renditions/ILPMD/ilpmd-attraction-bay-2007-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*"
+                        alt="Photo 4">
+                </div>
+                <div class="gallery-item h-40 md:h-80">
+                    <img src="https://cache.marriott.com/content/dam/marriott-renditions/ILPMD/ilpmd-attraction-isle-1590-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*"
+                        alt="Photo 4">
                 </div>
             </div>
-        </section>
+            <div class="space-y-8 px-4 pt-[100px]">
+                <h1 class="text-4xl font-merriweather font-bold mb-12 text-[#4C6173]">Nos avis</h1>
+                <hr class="border-t-2 border-[#E2E8F0] mb-8">
+                <div class="space-y-6">
+                    <app-review></app-review>
+                </div>
+            </div>
+        </div>
+        <div class="w-full md:w-1/3">
+            <app-reservation class="sticky top-[100px]"></app-reservation>
+        </div>
+
+
+
+
+        <!-- <div class="w-full lg:w-2/3 mr-4">
+
+        
+            <section class="mb-16">
+                <h1 class="text-4xl font-merriweather font-bold mb-12 text-[#4C6173]">Nos avis</h1>
+                <hr class="border-t-2 border-[#E2E8F0] mb-8">
+                <div class="space-y-6">
+                    <app-review></app-review>
+                </div>
+            </section>
+        </div> -->
+
+
     </div>
 
-    <!-- Composant de réservation à droite -->
-    <div id="reservation-panel"
-        class="w-full lg:w-1/3">
-        <app-reservation></app-reservation>
-    </div>
 </div>
-
-<app-footer></app-footer>
