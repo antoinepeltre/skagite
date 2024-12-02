@@ -2,10 +2,9 @@
   "name": "skagite",
   "version": "0.0.0",
   "scripts": {
-    "prebuild": "",
     "ng": "ng",
     "start": "ng serve",
-    "build": "node environment-variables.js && ng build",
+    "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
