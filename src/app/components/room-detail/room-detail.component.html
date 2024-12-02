@@ -59,7 +59,9 @@
 
                 <div>
                     <div class="sticky top-[100px]">
-                        <app-reservation></app-reservation>
+                        <div *ngIf="room">
+                            <app-reservation [room]="room"></app-reservation>
+                        </div>
                     </div>
                 </div>
             </div>

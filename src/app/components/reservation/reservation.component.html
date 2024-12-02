@@ -1,70 +1,98 @@
-<div id="reservation-panel" class="w-full mx-auto p-4 rounded-sm shadow-lg bg-white ml-">
+<div id="reservation-panel" class="w-full mx-auto p-4 rounded-sm shadow-lg bg-white relative">
     <h2 class="text-2xl font-bold mb-4 text-center">Réservez votre chambre</h2>
+    
+    <div class="overflow-y-auto max-h-[80vh] p-2">
+        <!-- Formulaire de réservation -->
+        <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
 
-    <!-- Formulaire de réservation -->
-    <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
-
-        <!-- Choix de la chambre -->
-        <div class="mb-4">
-            <label for="room" class="block text-sm font-semibold">Choisissez votre chambre</label>
-            <select id="room" formControlName="room"
-                class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
-                (change)="onRoomChange($event)">
-                <option *ngFor="let room of rooms" [value]="room.id">{{ room.name }}</option>
-            </select>
-        </div>
-
-        <p-calendar [(ngModel)]="selectedDates" [inline]="true" [disabledDates]="disabledDates" selectionMode="range"
-            [disabledDays]="[1]" (onSelect)="onDateChange($event)" styleClass="custom-calendar"
-            [ngModelOptions]="{standalone: true}" *ngIf="disabledDates.length > 0 || disabledDates.length === 0">
-
-            <ng-template pTemplate="date" let-date>
-                <span [ngClass]="getDateCellClass(date)">{{ date.day }}</span>
-            </ng-template>
-        </p-calendar>
-
-
-        <div class="mt-4">
-            <label for="startDate" class="block text-sm font-semibold">Date de début</label>
-            <input type="text" formControlName="startDate"
-                class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 mb-2"
-                [value]="startDate" readonly>
-
-            <label for="endDate" class="block text-sm font-semibold">Date de fin</label>
-            <input type="text" formControlName="endDate"
-                class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
-                [value]="endDate" readonly>
-        </div>
-
-        <!-- Nombre de personnes -->
-        <div class="mb-4">
-            <label for="people" class="block text-sm font-semibold">Nombre de personnes</label>
-            <div class="flex justify-between items-center">
-                <input type="number" id="adults" formControlName="adults" min="1" max="2"
-                    class="w-1/3 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500" />
-                Adultes
-                <input type="number" id="children" formControlName="children" min="0" max="1"
-                    class="w-1/3 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500" />
-                Enfant
+            <!-- Choix de la chambre -->
+            <div class="mb-4">
+                <label for="room" class="block text-sm font-semibold">Choisissez votre chambre</label>
+                <select id="room" formControlName="room"
+                    class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    (change)="onRoomChange($event)">
+                    <option *ngFor="let room of rooms" [value]="room.id">{{ room.name }}</option>
+                </select>
             </div>
-        </div>
 
-        <!-- Option lit parapluie -->
-        <div class="mb-4">
-            <label for="crib" class="block text-sm font-semibold">Lit parapluie</label>
-            <input type="checkbox" id="crib" formControlName="crib" class="mr-2" /> Ajouter (1000 XPF)
-        </div>
+            <!-- Calendrier -->
+            <p-calendar [(ngModel)]="selectedDates" [inline]="true" [disabledDates]="disabledDates" selectionMode="range"
+                [disabledDays]="[1]" (onSelect)="onDateChange($event)" styleClass="custom-calendar w-full"
+                [ngModelOptions]="{standalone: true}" [firstDayOfWeek]="1">
+                <ng-template pTemplate="date" let-date>
+                    <span [ngClass]="getDateCellClass(date)">{{ date.day }}</span>
+                </ng-template>
+            </p-calendar>
 
-        <!-- Affichage du prix -->
-        <div class="mb-4">
-            <label for="price" class="block text-sm font-semibold">Prix total</label>
-            <div class="text-lg font-bold">{{ totalPrice }} XPF</div> <!-- Affichage dynamique du prix -->
-        </div>
+            <div *ngIf="errorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <strong class="font-bold">Erreur :</strong>
+                <span class="block sm:inline">{{ errorMessage }}</span>
+            </div>
 
-        <!-- Bouton Réserver -->
-        <button type="submit"
-            class="w-full p-3 bg-orange-600 text-white rounded-lg shadow-md hover:bg-orange-700 focus:outline-none focus:ring-4 focus:ring-orange-300">
-            Réserver
-        </button>
-    </form>
+            <div class="mt-4">
+                <label for="startDate" class="block text-sm font-semibold">Date de début</label>
+                <input type="text" formControlName="startDate"
+                    class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 mb-2"
+                    [value]="startDate" readonly>
+
+                <label for="endDate" class="block text-sm font-semibold">Date de fin</label>
+                <input type="text" formControlName="endDate"
+                    class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    [value]="endDate" readonly>
+            </div>
+
+            <!-- Nombre de personnes -->
+            <div class="mb-4">
+                <label for="people" class="block text-sm font-semibold">Nombre de personnes</label>
+                <div class="flex justify-between items-center">
+                    <input type="number" id="adults" formControlName="adults" min="1" max="2"
+                        class="w-1/3 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500" />
+                    Adultes
+                    <input type="number" id="children" formControlName="children" min="0" max="1"
+                        class="w-1/3 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500" />
+                    Enfant
+                </div>
+            </div>
+
+            <!-- Option lit parapluie avec info-bulle -->
+            <div class="mb-4 relative">
+                <label for="crib" class="block text-sm font-semibold">Lit parapluie
+                    <span class="relative group">
+                        <svg class="w-4 h-4 inline-block text-gray-500 cursor-pointer" fill="currentColor"
+                            viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M18 10c0 4.418-3.582 8-8 8s-8-3.582-8-8 3.582-8 8-8 8 3.582 8 8zm-8-3a1 1 0 100 2 1 1 0 000-2zm1 3H9v4a1 1 0 102 0V10z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <div
+                            class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-600 text-white text-xs rounded-lg px-2 py-1">
+                            Un lit parapluie est un lit pour bébé facile à plier et transporter.
+                        </div>
+                    </span>
+                </label>
+                <input type="checkbox" id="crib" formControlName="crib" class="mr-2" /> Ajouter (1000 XPF)
+            </div>
+
+            <!-- Affichage du prix -->
+            <div class="mb-4">
+                <label for="price" class="block text-sm font-semibold">Prix total</label>
+                <div class="text-lg font-bold">{{ totalPrice }} XPF</div> <!-- Affichage dynamique du prix -->
+            </div>
+
+            <!-- Bouton Réserver -->
+            <button type="submit"
+                class="w-full p-3 bg-gray-700 text-white shadow-md hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                Réserver
+            </button>
+
+            
+
+
+        </form>
+    </div>
+    
+    <!-- Loader -->
+    <div *ngIf="isLoading" id="loader" class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75">
+        <div class="loader"></div>
+    </div>
 </div>

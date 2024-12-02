@@ -1,28 +1,17 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
-import { RoomService } from '../../services/room.service';
 import { Room } from '../../models/Room';
 import { ReservationService } from '../../services/reservation.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Reservation } from '../../models/Reservation';
-import { BehaviorSubject, distinctUntilChanged, Subscription } from 'rxjs';
 import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
 
 @Component({
   selector: 'app-reservation',
   standalone: true,
   imports: [
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
     ReactiveFormsModule,
     CalendarModule,
     FormsModule,
@@ -34,7 +23,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 })
 export class ReservationComponent {
   reservationForm!: FormGroup;
-  rooms: Room[] = [];
+  @Input() rooms: Room[] = [];
+  @Input() room: Room | undefined;
   totalPrice = 0;
   isLoading = false;
   errorMessage: string | null = null;
@@ -50,12 +40,9 @@ export class ReservationComponent {
 
   constructor(
     private fb: FormBuilder,
-    private roomService: RoomService,
-    private reservationService: ReservationService,
-    private cdr: ChangeDetectorRef
+    private reservationService: ReservationService
   ) { }
 
-  // Initialisation du formulaire et chargement des chambres disponibles
   ngOnInit(): void {
     this.reservationForm = this.fb.group({
       room: ['', Validators.required],
@@ -66,96 +53,57 @@ export class ReservationComponent {
       crib: [false]
     });
 
-    this.date = new Date();
-    this.loadRooms();
-
-    // Calcul du prix total à chaque changement de valeur dans le formulaire
     this.reservationForm.valueChanges.subscribe(() => {
-      this.calculateTotalPrice();
+      this.updateTotalPrice();
     });
-  }
 
-  // Charge les chambres disponibles et sélectionne la première chambre
-  async loadRooms(): Promise<void> {
-    this.isLoading = true;
-    this.errorMessage = null;
-    try {
-      this.rooms = await this.roomService.fetchRooms();
-      if (this.rooms) {
-        this.reservationForm.patchValue({
-          room: this.rooms[0].id
-        });
-        this.loadReservedDates(this.rooms[0].id);
-      }
-    } catch (error) {
-      this.errorMessage = 'Failed to load rooms. Please try again later.';
-    } finally {
-      this.isLoading = false;
+    if (this.rooms && this.rooms.length > 0) {
+      this.reservationForm.patchValue({ room: this.rooms[0].id });
+      this.loadReservedDates(this.rooms[0].id);
     }
   }
 
-  // Charge les dates réservées pour une chambre donnée
   loadReservedDates(roomId: number): void {
+    this.isLoading = true;
     this.reservationService.getReservedDates(roomId).then(dates => {
-      const reservedAndUnavailableDates = [
-        ...dates,
-      ];
-
-      // Mise à jour de la liste des dates désactivées
-      this.disabledDates = reservedAndUnavailableDates.map(dateString => {
+      this.disabledDates = dates.map(dateString => {
         const date = new Date(dateString);
         date.setHours(0, 0, 0, 0);
         return date;
       });
+      this.isLoading = false;
     });
   }
 
-
-  // Gère le changement de chambre sélectionnée
   onRoomChange(event: any): void {
     const roomId = event.target.value;
     this.loadReservedDates(roomId);
   }
 
-  // Gère le changement de dates sélectionnées
   onDateChange(event: any): void {
-    if (this.selectedDates && this.selectedDates.length === 2) {
+    if (this.selectedDates.length === 2) {
       const [start, end] = this.selectedDates;
-
-      if (start && end) {
-        const hasMonday = this.isDateRangeInvalid(start, end);
-
-        if (hasMonday) {
-          alert('Réservation impossible : le gîte est fermé le lundi.');
-          // Réinitialise les dates sélectionnées si le range inclut un lundi
-          this.reservationForm.patchValue({
-            startDate: '',
-            endDate: ''
-          });
-          this.selectedDates = [];
-          this.date = undefined;
-          return;
-        }
-
-        this.startDate = this.adjustDateForTimezone(start);
-        this.endDate = this.adjustDateForTimezone(end);
-
-        this.reservationForm.patchValue({
-          startDate: this.startDate,
-          endDate: this.endDate
-        });
+      if (start && end && this.isInvalidDateRange(start, end)) {
+        this.showError('Réservation impossible : le gîte est fermé le lundi.');
+        this.resetDates();
+        return;
       }
+
+      this.startDate = this.adjustDateForTimezone(start);
+      this.endDate = this.adjustDateForTimezone(end);
+      this.reservationForm.patchValue({
+        startDate: this.startDate,
+        endDate: this.endDate
+      });
     }
   }
 
-  // Ajuste les dates en fonction du fuseau horaire local
   adjustDateForTimezone(date: Date): string {
     const localDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
     return localDate.toISOString().split('T')[0];
   }
 
-  // Vérifie si une plage de dates est invalide (si elle contient un lundi)
-  isDateRangeInvalid(start: Date, end: Date): boolean {
+  isInvalidDateRange(start: Date, end: Date): boolean {
     const currentDate = new Date(start);
     while (currentDate <= end) {
       if (currentDate.getDay() === 1) { // Vérifie si c'est un lundi
@@ -188,34 +136,15 @@ export class ReservationComponent {
     return date.getDay() === 1; // Tous les lundis
   }
 
-
-
-  // Calcule le prix total en fonction des dates sélectionnées et des options
-  calculateTotalPrice(): void {
+  updateTotalPrice(): void {
     const { startDate, endDate, crib } = this.reservationForm.value;
     if (startDate && endDate) {
-      const start = new Date(startDate);
-      const end = new Date(endDate);
-      const diff = Math.ceil((end.getTime() - start.getTime()) / (1000 * 3600 * 24));
-
-      const weekendPrice = 7000;
-      const weekdayPrice = 5000;
-      const cribPrice = crib ? 1000 : 0;
-
-      let price = diff * weekdayPrice + cribPrice;
-      for (let i = 0; i < diff; i++) {
-        const day = new Date(start);
-        day.setDate(day.getDate() + i);
-        if (day.getDay() === 0 || day.getDay() === 6) {
-          price += (weekendPrice - weekdayPrice);
-        }
-      }
-
-      this.totalPrice = price;
+      this.reservationService.calculatePrice(startDate, endDate, crib).then(price => {
+        this.totalPrice = price;
+      });
     }
   }
 
-  // Soumet le formulaire de réservation
   async onSubmit(): Promise<void> {
     if (this.reservationForm.valid) {
       const formValues = this.reservationForm.value;
@@ -235,33 +164,55 @@ export class ReservationComponent {
 
       this.isLoading = true;
       this.errorMessage = null;
+
       try {
-        const isAvailable = await this.reservationService.checkAvailability(reservation.roomId, reservation.startDate, reservation.endDate);
+        const isAvailable = await this.reservationService.checkAvailability(
+          reservation.roomId, reservation.startDate, reservation.endDate
+        );
         if (isAvailable) {
           await this.reservationService.addReservation(reservation);
-          alert('Réservation réussie !');
-
           this.loadReservedDates(reservation.roomId);
-
-          this.reservationForm.reset({
-            room: '',
-            startDate: '',
-            endDate: '',
-            adults: 1,
-            children: 0,
-            crib: false
-          });
-          this.date = undefined;
-          this.startDate = '';
-          this.endDate = '';
+          this.resetForm();
         } else {
-          alert('La chambre est indisponible pour les dates sélectionnées.');
+          this.showError('La chambre est indisponible pour les dates sélectionnées.');
         }
       } catch (error) {
-        this.errorMessage = 'An error occurred while processing your reservation. Please try again.';
+        this.showError('Une erreur s\'est produite lors du traitement de votre réservation. Veuillez réessayer.');
       } finally {
         this.isLoading = false;
       }
     }
   }
+
+  resetForm(): void {
+    this.reservationForm.reset({
+      room: '',
+      startDate: '',
+      endDate: '',
+      adults: 1,
+      children: 0,
+      crib: false
+    });
+    this.date = undefined;
+    this.startDate = '';
+    this.endDate = '';
+  }
+
+  showError(message: string): void {
+    this.errorMessage = message;
+    setTimeout(() => {
+      this.errorMessage = null;
+    }, 2000);
+  }
+
+  resetDates(): void {
+    this.selectedDates = []; // Réinitialise les dates sélectionnées
+    this.startDate = '';
+    this.endDate = '';
+    this.reservationForm.patchValue({
+      startDate: '',
+      endDate: ''
+    });
+  }
+
 }

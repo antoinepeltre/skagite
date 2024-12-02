@@ -3,26 +3,36 @@
 import { Injectable } from '@angular/core';
 import { SupabaseService } from './supabase.service';
 import { Room } from '../models/Room';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoomService {
+  private roomsSubject = new BehaviorSubject<Room[] | null>(null); // Initial state
+  rooms$ = this.roomsSubject.asObservable();
 
   constructor(private supabaseService: SupabaseService) { }
 
-  async fetchRooms(): Promise<Room[]> {
-    const { data, error } = await this.supabaseService.client
-      .from('rooms')
-      .select('*');
-  
-    if (error) {
-      console.error('Error fetching rooms:', error);
+  async fetchRooms(): Promise<void> {
+    try {
+      const { data, error } = await this.supabaseService.client
+        .from('rooms')
+        .select('*');
+
+      if (error) {
+        console.error('Error fetching rooms:', error);
+        throw error;
+      }
+
+      const rooms = data ? data.map((room) => new Room(room)) : [];
+      this.roomsSubject.next(rooms);
+    } catch (error) {
+      this.roomsSubject.next([]);
       throw error;
     }
-  
-    return data ? data.map(room => new Room(room)) : [];
   }
+
 
   async fetchRoom(roomId: string): Promise<Room> {
     const { data, error } = await this.supabaseService.client

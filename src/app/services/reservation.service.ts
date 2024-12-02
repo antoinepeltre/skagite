@@ -6,6 +6,11 @@ import { Reservation } from '../models/Reservation';
   providedIn: 'root'
 })
 export class ReservationService {
+  private weekdayPrice = 5000; // Tarif en semaine
+  private weekendPrice = 7000; // Tarif le week-end
+  private cribPrice = 1000; // Supplément pour lit parapluie
+
+
   constructor(private supabaseService: SupabaseService) { }
 
   async checkAvailability(roomId: number, startDate: string, endDate: string): Promise<boolean> {
@@ -14,8 +19,8 @@ export class ReservationService {
         .from('reservations')
         .select('*')
         .eq('room_id', roomId)
-        .lte('start_date', endDate) // Date de début de la réservation existante doit être avant ou égale à la fin de la nouvelle réservation
-        .gte('end_date', startDate); // Date de fin de la réservation existante doit être après ou égale au début de la nouvelle réservation
+        .lte('start_date', endDate) 
+        .gte('end_date', startDate);
   
       if (error) {
         throw error;
@@ -74,5 +79,55 @@ export class ReservationService {
     }
   }
 
+  async calculatePrice(startDate: string, endDate: string, crib: boolean): Promise<number> {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    // Vérification de la validité des dates
+    const timeDiff = end.getTime() - start.getTime();
+    const numberOfNights = timeDiff / (1000 * 3600 * 24);
+
+    if (numberOfNights < 1) {
+      throw new Error('La durée de la réservation doit être d\'au moins 1 nuit.');
+    }
+
+    // Vérifie que la réservation ne couvre pas un lundi
+    if (this.isDateInRange(start, end, 1)) { // 1 représente le lundi
+      throw new Error('Le gîte est fermé le lundi. Veuillez choisir d\'autres dates.');
+    }
+
+    let totalPrice = 0;
+
+    // Calcul du prix pour chaque nuit
+    for (let i = 0; i < numberOfNights; i++) {
+      const currentDay = new Date(start);
+      currentDay.setDate(currentDay.getDate() + i);
+
+      // Vérifie si c'est un week-end (samedi ou dimanche)
+      if (currentDay.getDay() === 0 || currentDay.getDay() === 6) {
+        totalPrice += this.weekendPrice;
+      } else {
+        totalPrice += this.weekdayPrice;
+      }
+    }
+
+    // Ajouter le supplément pour le lit parapluie, si sélectionné
+    if (crib) {
+      totalPrice += this.cribPrice;
+    }
+
+    return totalPrice;
+  }
+
+  private isDateInRange(start: Date, end: Date, targetDay: number): boolean {
+    const currentDate = new Date(start);
+    while (currentDate <= end) {
+      if (currentDate.getDay() === targetDay) {
+        return true; // Lundi trouvé dans la plage de dates
+      }
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+    return false;
+  }
   
 }

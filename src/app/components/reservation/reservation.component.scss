@@ -1,11 +1,20 @@
+.loader {
+    border: 8px solid #f3f3f3;
+    /* Light grey */
+    border-top: 8px solid #4C6173;
+    /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
 
-::ng-deep .custom-calendar .p-datepicker td.p-disabled:not(.p-datepicker-other-month) {
-    background-color: #f7dede; 
-    color: #d9534f;
-  }
-  
-  ::ng-deep .custom-calendar .p-datepicker td.p-disabled.p-datepicker-other-month {
-    background-color: #f0f0f0;
-    color: #9e9e9e;
-  }
-  
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

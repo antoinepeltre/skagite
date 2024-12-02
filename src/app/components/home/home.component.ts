@@ -26,16 +26,11 @@ export class HomeComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.fetchRooms();
+    console.dir('Jome');
+    this.roomService.rooms$.subscribe((data) => {
+      if (data) this.rooms = data;
+    });
 
-  }
-
-  async fetchRooms() {
-    try {
-      this.rooms = await this.roomService.fetchRooms();
-    } catch (error) {
-      console.error('Failed to load rooms:', error);
-    }
   }
 
   navigateToRoomDetail(roomId: number) {
