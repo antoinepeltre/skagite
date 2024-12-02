@@ -2,6 +2,7 @@
   "name": "skagite",
   "version": "0.0.0",
   "scripts": {
+    "prebuild": "node environment-variables.js",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
@@ -20,6 +21,7 @@
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
     "@supabase/supabase-js": "^2.46.1",
+    "dotenv": "^16.4.5",
     "primeicons": "^7.0.0",
     "primeng": "^17.18.12",
     "rxjs": "~7.8.0",
