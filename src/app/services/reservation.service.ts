@@ -48,11 +48,10 @@ export class ReservationService {
 
   async getReservedDates(roomId: number): Promise<Date[]> {
     try {
-      // Récupérer les réservations de la chambre
       const { data, error } = await this.supabaseService.client
-        .from('reservations') // Nom de la table dans ta base de données
-        .select('*') // Sélectionner toutes les colonnes
-        .eq('room_id', roomId); // Filtrer par room_id
+        .from('reservations')
+        .select('*')
+        .eq('room_id', roomId);
 
       if (error) {
         throw error;
@@ -75,7 +74,7 @@ export class ReservationService {
       return reservedDates;
     } catch (error) {
       console.error('Erreur lors de la récupération des réservations:', error);
-      return []; // Retourner un tableau vide en cas d'erreur
+      return []; 
     }
   }
 
@@ -92,7 +91,7 @@ export class ReservationService {
     }
 
     // Vérifie que la réservation ne couvre pas un lundi
-    if (this.isDateInRange(start, end, 1)) { // 1 représente le lundi
+    if (this.isDateInRange(start, end, 1)) {
       throw new Error('Le gîte est fermé le lundi. Veuillez choisir d\'autres dates.');
     }
 

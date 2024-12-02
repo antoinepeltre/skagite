@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Room } from '../../models/Room';
 import { ReservationService } from '../../services/reservation.service';
-import { ReactiveFormsModule } from '@angular/forms';
-import { Reservation } from '../../models/Reservation';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FeedbackMessage } from '../../models/FeedbackMessage';
+import { Reservation } from '../../models/Reservation';
 
 @Component({
   selector: 'app-reservation',
@@ -35,8 +35,6 @@ export class ReservationComponent {
   endDate: string = '';
   reservedDates: Date[] = [];
   disabledDates: Date[] = [];
-
-  date: Date | undefined;
   selectedDates: Date[] = [];
 
   constructor(
@@ -45,6 +43,12 @@ export class ReservationComponent {
   ) { }
 
   ngOnInit(): void {
+    this.initializeForm();
+    this.setupFormSubscriptions();
+    this.initializeRoomSelection();
+  }
+
+  initializeForm(): void {
     this.reservationForm = this.fb.group({
       room: ['', Validators.required],
       startDate: ['', Validators.required],
@@ -53,23 +57,33 @@ export class ReservationComponent {
       children: [0, [Validators.required, Validators.min(0), Validators.max(1)]],
       crib: [false]
     });
+  }
 
+  setupFormSubscriptions(): void {
     this.reservationForm.valueChanges.subscribe(() => {
       this.updateTotalPrice();
     });
+  }
 
+  initializeRoomSelection(): void {
+    // Automatically select the first room if none is selected
     if (this.rooms && this.rooms.length > 0 && !this.room) {
-      this.reservationForm.patchValue({ room: this.rooms[0].id });
-      this.loadReservedDates(this.rooms[0].id);
+      this.selectRoom(this.rooms[0].id);
     }
 
     if (this.room) {
-      this.reservationForm.patchValue({ room: this.room.id });
-      this.loadReservedDates(this.room.id);
+      this.selectRoom(this.room.id);
     }
   }
 
+  selectRoom(roomId: number): void {
+    // Patch the form with the selected room ID and load its reserved dates
+    this.reservationForm.patchValue({ room: roomId });
+    this.loadReservedDates(roomId);
+  }
+
   loadReservedDates(roomId: number): void {
+    // Fetch reserved dates for the selected room and disable those dates on the calendar
     this.isLoading = true;
     this.reservationService.getReservedDates(roomId).then(dates => {
       this.disabledDates = dates.map(dateString => {
@@ -86,52 +100,44 @@ export class ReservationComponent {
     this.loadReservedDates(roomId);
   }
 
-  onDateChange(event: any): void {
+  onDateChange(): void {
     if (this.selectedDates.length === 2) {
       const [start, end] = this.selectedDates;
-  
-      // Vérifiez si la plage de dates contient un lundi
-      if (start && end && this.isInvalidDateRange(start, end)) {
-        this.showMessage({
-          type: 'error',
-          text: "Réservation impossible : le gîte est fermé le lundi.",
-        });
+
+      if (this.isInvalidDateRange(start, end)) {
+        this.showMessage({ type: 'error', text: "Réservation impossible : le gîte est fermé le lundi." });
         this.resetDates();
         return;
       }
-  
-      // Vérifiez si les dates sont déjà réservées
-      const roomId = this.reservationForm.value.room;
-      if (roomId && start && end) {
-        this.reservationService.checkAvailability(roomId, start.toISOString(), end.toISOString())
-          .then(isAvailable => {
-            if (!isAvailable) {
-              this.showMessage({
-                type: 'error',
-                text: 'Certaines des dates sélectionnées sont déjà réservées.',
-              });
-              this.resetDates();
-            } else {
-              this.startDate = this.adjustDateForTimezone(start);
-              this.endDate = this.adjustDateForTimezone(end);
-              this.reservationForm.patchValue({
-                startDate: this.startDate,
-                endDate: this.endDate,
-              });
-            }
-          })
-          .catch(error => {
-            console.error('Error checking availability:', error);
-            this.showMessage({
-              type: 'error',
-              text: 'Une erreur est survenue lors de la vérification de la disponibilité. Veuillez réessayer.',
-            });
-            this.resetDates();
-          });
-      }
+
+      this.checkDateAvailability(start, end);
     }
   }
-  
+
+  checkDateAvailability(start: Date, end: Date): void {
+    const roomId = this.reservationForm.value.room;
+    if (roomId && start && end) {
+      this.reservationService.checkAvailability(roomId, start.toISOString(), end.toISOString())
+        .then(isAvailable => {
+          if (!isAvailable) {
+            this.showMessage({ type: 'error', text: 'Certaines des dates sélectionnées sont déjà réservées.' });
+            this.resetDates();
+          } else {
+            this.updateFormDates(start, end);
+          }
+        })
+        .catch(() => {
+          this.showMessage({ type: 'error', text: 'Une erreur est survenue lors de la vérification de la disponibilité. Veuillez réessayer.' });
+          this.resetDates();
+        });
+    }
+  }
+
+  updateFormDates(start: Date, end: Date): void {
+    this.startDate = this.adjustDateForTimezone(start);
+    this.endDate = this.adjustDateForTimezone(end);
+    this.reservationForm.patchValue({ startDate: this.startDate, endDate: this.endDate });
+  }
 
   adjustDateForTimezone(date: Date): string {
     const localDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
@@ -141,7 +147,7 @@ export class ReservationComponent {
   isInvalidDateRange(start: Date, end: Date): boolean {
     const currentDate = new Date(start);
     while (currentDate <= end) {
-      if (currentDate.getDay() === 1) { // Vérifie si c'est un lundi
+      if (currentDate.getDay() === 1) { // Check if it's a Monday
         return true;
       }
       currentDate.setDate(currentDate.getDate() + 1);
@@ -168,7 +174,7 @@ export class ReservationComponent {
   }
 
   isNonBookableDay(date: Date): boolean {
-    return date.getDay() === 1; // Tous les lundis
+    return date.getDay() === 1; // Every Monday
   }
 
   updateTotalPrice(): void {
@@ -183,14 +189,12 @@ export class ReservationComponent {
   async onSubmit(): Promise<void> {
     if (this.reservationForm.valid) {
       const formValues = this.reservationForm.value;
-      const { startDate, endDate, room, adults, children, crib } = formValues;
-
       const reservation = new Reservation({
-        room_id: room,
-        start_date: startDate,
-        end_date: endDate,
-        guests: adults + children,
-        baby_cot: crib,
+        room_id: formValues.room,
+        start_date: formValues.startDate,
+        end_date: formValues.endDate,
+        guests: formValues.adults + formValues.children,
+        baby_cot: formValues.crib,
         total_price: this.totalPrice,
         status: 'pending',
         created_at: new Date().toISOString(),
@@ -200,28 +204,18 @@ export class ReservationComponent {
       this.isLoading = true;
 
       try {
-        const isAvailable = await this.reservationService.checkAvailability(
-          reservation.roomId, reservation.startDate, reservation.endDate
-        );
+        // Check if the selected dates are still available before making the reservation
+        const isAvailable = await this.reservationService.checkAvailability(reservation.roomId, reservation.startDate, reservation.endDate);
         if (isAvailable) {
           await this.reservationService.addReservation(reservation);
-          this.showMessage({
-            type: 'success',
-            text: "L'équipe Skagite vous remercie pour votre réservation et reviendra vers vous très prochainement !",
-          });
+          this.showMessage({ type: 'success', text: "L'équipe Skagite vous remercie pour votre réservation et reviendra vers vous très prochainement !" });
           this.loadReservedDates(reservation.roomId);
           this.resetForm(reservation.roomId);
         } else {
-          this.showMessage({
-            type: 'error',
-            text: 'La chambre est indisponible pour les dates sélectionnées.',
-          });
+          this.showMessage({ type: 'error', text: 'La chambre est indisponible pour les dates sélectionnées.' });
         }
-      } catch (error) {
-        this.showMessage({
-          type: 'error',
-          text: 'Une erreur s\'est produite lors du traitement de votre réservation. Veuillez réessayer.',
-        });
+      } catch {
+        this.showMessage({ type: 'error', text: 'Une erreur s\'est produite lors du traitement de votre réservation. Veuillez réessayer.' });
       } finally {
         this.isLoading = false;
       }
@@ -229,6 +223,7 @@ export class ReservationComponent {
   }
 
   resetForm(roomId: number): void {
+    // Reset the form with initial values and clear the related states
     this.reservationForm.reset({
       room: roomId,
       startDate: '',
@@ -237,7 +232,6 @@ export class ReservationComponent {
       children: 0,
       crib: false,
     });
-    this.date = undefined;
     this.startDate = '';
     this.endDate = '';
     this.totalPrice = 0;
@@ -254,10 +248,6 @@ export class ReservationComponent {
     this.selectedDates = [];
     this.startDate = '';
     this.endDate = '';
-    this.reservationForm.patchValue({
-      startDate: '',
-      endDate: ''
-    });
+    this.reservationForm.patchValue({ startDate: '', endDate: '' });
   }
-
 }

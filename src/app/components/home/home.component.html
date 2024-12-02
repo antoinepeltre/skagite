@@ -1,9 +1,9 @@
-<div class="bg-[#F2F0E5]">
+<div class="bg-custom-beige">
 
     <app-hero-section></app-hero-section>
 
     <div class="container mx-auto py-16 px-4">
-        <h1 class="text-4xl font-merriweather font-bold mb-12 text-[#4C6173]">Nos Chambres</h1>
+        <h1 class="text-4xl font-merriweather font-bold mb-12 text-custom-gray">Nos Chambres</h1>
         <hr class="border-t-2 border-[#E2E8F0] mb-8">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="house-card relative overflow-hidden cursor-pointer h-[450px]" *ngFor="let room of rooms"
@@ -17,8 +17,8 @@
                     </div>
                 </div>
                 <div class="absolute bottom-0 left-0 right-0 bg-white bg-opacity-80 p-4 text-center">
-                    <p class="text-lg font-semibold text-[#4C6173]">À partir de 5000 XPF la nuit</p>
-                    <p class="mt-1 text-sm text-[#4C6173]">37m², ventilateur, balcon</p>
+                    <p class="text-lg font-semibold text-custom-gray">À partir de 5000 XPF la nuit</p>
+                    <p class="mt-1 text-sm text-custom-gray">37m², ventilateur, balcon</p>
                 </div>
             </div>
         </div>
@@ -26,10 +26,10 @@
 
 
     <div class="container px-4 mx-auto flex flex-col md:flex-row pb-[100px]">
-        <!-- Bloc de gauche -->
+        
         <div class="w-full md:w-2/3">
             <div class="mb-8">
-                <h1 class="text-4xl font-merriweather font-bold mb-12 text-[#4C6173]">Découvrez notre gîte</h1>
+                <h1 class="text-4xl font-merriweather font-bold mb-12 text-custom-gray">Découvrez notre gîte</h1>
                 <hr class="border-t-2 border-[#E2E8F0] mb-8">
                 <p class="text-lg">Profitez d'une expérience unique dans notre gîte, où chaque détail a été pensé pour
                     votre confort et votre plaisir.</p>
@@ -37,35 +37,35 @@
             <div class="space-y-8 pb-12">
                 <div class="flex items-start">
                     <div class="ml-4">
-                        <h3 class="text-xl font-merriweather font-bold text-[#4C6173]">Tranquillité</h3>
+                        <h3 class="text-xl font-merriweather font-bold text-custom-gray">Tranquillité</h3>
                         <p>Un cadre paisible et serein pour des moments de relaxation totale.</p>
                     </div>
                 </div>
                 <div class="flex items-start">
 
                     <div class="ml-4">
-                        <h3 class="text-xl font-merriweather font-bold text-[#4C6173]">Coucher de soleil</h3>
+                        <h3 class="text-xl font-merriweather font-bold text-custom-gray">Coucher de soleil</h3>
                         <p>Admirez des couchers de soleil époustouflants depuis notre terrasse.</p>
                     </div>
                 </div>
                 <div class="flex items-start">
 
                     <div class="ml-4">
-                        <h3 class="text-xl font-merriweather font-bold text-[#4C6173]">Équipements modernes</h3>
+                        <h3 class="text-xl font-merriweather font-bold text-custom-gray">Équipements modernes</h3>
                         <p>Des installations de pointe pour votre confort et commodité.</p>
                     </div>
                 </div>
                 <div class="flex items-start">
 
                     <div class="ml-4">
-                        <h3 class="text-xl  font-merriweather font-bold text-[#4C6173]">Nature à proximité</h3>
+                        <h3 class="text-xl  font-merriweather font-bold text-custom-gray">Nature à proximité</h3>
                         <p>Accès direct à des sentiers de randonnée et à des paysages naturels.</p>
                     </div>
                 </div>
                 <div class="flex items-start">
 
                     <div class="ml-4">
-                        <h3 class="text-xl font-merriweather font-bold text-[#4C6173]">Activités variées</h3>
+                        <h3 class="text-xl font-merriweather font-bold text-custom-gray">Activités variées</h3>
                         <p>Profitez d'un large éventail d'activités de loisirs pour toute la famille.</p>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
                 </div>
             </div>
             <div class="space-y-8 px-4 pt-[100px]">
-                <h1 class="text-4xl font-merriweather font-bold mb-12 text-[#4C6173]">Nos avis</h1>
+                <h1 class="text-4xl font-merriweather font-bold mb-12 text-custom-gray">Nos avis</h1>
                 <hr class="border-t-2 border-[#E2E8F0] mb-8">
                 <div class="space-y-6">
                     <app-review></app-review>
@@ -119,7 +119,7 @@
         <div class="w-full md:w-1/3">
             <div *ngIf="rooms.length > 0"
                 class="sticky top-[100px]">
-                <app-reservation class="sticky top-[100px]" [rooms]="rooms"></app-reservation>
+                <app-reservation [rooms]="rooms"></app-reservation>
             </div>
 
         </div>

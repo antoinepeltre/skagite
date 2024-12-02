@@ -12,9 +12,7 @@ export class Review {
       this.comment = data.comment;
       this.created_at = data.created_at;
     }
-  
-  
-    // Getter et Setter pour 'reviewer_name'
+    
     get reviewerName(): string {
       return this.reviewer_name;
     }
@@ -23,8 +21,6 @@ export class Review {
       this.reviewer_name = value;
     }
   
-  
-    // Getter et Setter pour 'created_at'
     get createdAt(): string {
       return this.created_at;
     }

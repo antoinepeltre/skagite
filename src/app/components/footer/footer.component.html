@@ -1,17 +1,14 @@
-<footer class="bg-[#4C6173] text-[#F2F0E5] py-12">
+<footer class="bg-custom-gray text-custom-beige py-12">
     <div class="container mx-auto flex justify-between items-center">
-        <!-- Colonne 1: Skagite centré -->
         <div class="flex flex-col justify-center items-center text-center">
             <h2 class="text-3xl font-bold md:text-4xl lg:text-5xl font-merriweather">Skagite</h2>
             <p class="text-lg md:text-xl font-light mt-2">Un lieu de détente et d'aventure</p>
         </div>
         
-        <!-- Colonne 2: Liens du header -->
         <div class="flex flex-col space-y-4">
             <a *ngFor="let room of rooms" [href]="'rooms/' + room.id" class="hover:underline">{{room.name}}</a>
         </div>
         
-        <!-- Colonne 3: Informations -->
         <div class="flex flex-col space-y-4">
             <p class="font-semibold">Contactez-nous</p>
             <a href="tel:+496170961709">Téléphone : +33 1 23 45 67 89</a>

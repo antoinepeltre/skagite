@@ -16,13 +16,11 @@ export class Reservation {
     this.guests = data.guests;
     this.baby_cot = data.baby_cot;
     this.total_price = data.total_price;
-    this.status = data.status || 'pending'; // Default to 'pending'
-    this.created_at = data.created_at || new Date().toISOString(); // Default to current date
-    this.updated_at = data.updated_at || new Date().toISOString(); // Default to current date
+    this.status = data.status || 'pending';
+    this.created_at = data.created_at || new Date().toISOString();
+    this.updated_at = data.updated_at || new Date().toISOString();
   }
 
-
-  // Getter et Setter pour 'startDate'
   get roomId(): number {
     return this.room_id;
   }
@@ -31,7 +29,6 @@ export class Reservation {
     this.room_id = value;
   }
 
-  // Getter et Setter pour 'startDate'
   get startDate(): string {
     return this.start_date;
   }
@@ -40,7 +37,7 @@ export class Reservation {
     this.start_date = value;
   }
 
-  // Getter et Setter pour 'endDate'
+
   get endDate(): string {
     return this.end_date;
   }
@@ -49,8 +46,6 @@ export class Reservation {
     this.end_date = value;
   }
 
-
-  // Getter et Setter pour 'babyCot'
   get babyCot(): boolean {
     return this.baby_cot;
   }
@@ -59,7 +54,6 @@ export class Reservation {
     this.baby_cot = value;
   }
 
-  // Getter et Setter pour 'totalPrice'
   get totalPrice(): number {
     return this.total_price;
   }
@@ -68,7 +62,6 @@ export class Reservation {
     this.total_price = value;
   }
 
-  // Getter et Setter pour 'createdAt'
   get createdAt(): string {
     return this.created_at;
   }
@@ -77,7 +70,6 @@ export class Reservation {
     this.created_at = value;
   }
 
-  // Getter et Setter pour 'updatedAt'
   get updatedAt(): string {
     return this.updated_at;
   }

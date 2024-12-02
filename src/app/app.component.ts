@@ -27,7 +27,6 @@ export class AppComponent implements OnInit {
       console.error('Error fetching rooms in AppComponent:', error);
     });
 
-    // Subscribe to the rooms observable to get updates
     this.roomService.rooms$.subscribe((data) => {
       if (data) this.rooms = data;
     });

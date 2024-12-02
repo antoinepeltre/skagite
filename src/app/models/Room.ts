@@ -25,7 +25,6 @@ export class Room {
       this.picture_urls = data.picture_urls || [];
     }
   
-    // Getter et Setter pour 'imageUrl'
     get imageUrl(): string {
       return this.image_url;
     }
@@ -34,7 +33,6 @@ export class Room {
       this.image_url = value;
     }
   
-    // Getter et Setter pour 'priceWeekend'
     get priceWeekend(): number {
       return this.price_weekend;
     }
@@ -43,7 +41,6 @@ export class Room {
       this.price_weekend = value;
     }
   
-    // Getter et Setter pour 'priceWeekday'
     get priceWeekday(): number {
       return this.price_weekday;
     }
@@ -52,7 +49,6 @@ export class Room {
       this.price_weekday = value;
     }
   
-    // Getter et Setter pour 'capacityAdults'
     get capacityAdults(): number {
       return this.capacity_adults;
     }
@@ -61,7 +57,6 @@ export class Room {
       this.capacity_adults = value;
     }
   
-    // Getter et Setter pour 'capacityChildren'
     get capacityChildren(): number {
       return this.capacity_children;
     }
@@ -70,7 +65,6 @@ export class Room {
       this.capacity_children = value;
     }
   
-    // Getter et Setter pour 'cribPrice'
     get cribPrice(): number {
       return this.crib_price;
     }
@@ -79,7 +73,6 @@ export class Room {
       this.crib_price = value;
     }
   
-    // Getter et Setter pour 'cribPrice'
     get coverUrl(): string {
       return this.cover_url;
     }
@@ -88,7 +81,6 @@ export class Room {
       this.cover_url = value;
     }
   
-    // Getter et Setter pour 'cribPrice'
     get pictureUrls(): string[] {
       return this.picture_urls;
     }

@@ -24,9 +24,8 @@
 
             </div>
 
-            <!-- Calendrier -->
             <p-calendar [(ngModel)]="selectedDates" [inline]="true" [disabledDates]="disabledDates"
-                selectionMode="range" [disabledDays]="[1]" (onSelect)="onDateChange($event)"
+                selectionMode="range" [disabledDays]="[1]" (onSelect)="onDateChange()"
                 styleClass="custom-calendar w-full" [ngModelOptions]="{standalone: true}" [firstDayOfWeek]="1">
                 <ng-template pTemplate="date" let-date>
                     <span [ngClass]="getDateCellClass(date)">{{ date.day }}</span>
@@ -53,7 +52,7 @@
                     [value]="endDate" readonly>
             </div>
 
-            <!-- Nombre de personnes -->
+
             <div class="mb-4">
                 <label for="people" class="block text-sm font-semibold">Nombre de personnes</label>
                 <div class="flex justify-between items-center">
@@ -66,7 +65,7 @@
                 </div>
             </div>
 
-            <!-- Option lit parapluie avec info-bulle -->
+
             <div class="mb-4 relative">
                 <label for="crib" class="block text-sm font-semibold">Lit parapluie
                     <span class="relative group">
@@ -85,20 +84,17 @@
                 <input type="checkbox" id="crib" formControlName="crib" class="mr-2" /> Ajouter (1000 XPF)
             </div>
 
-            <!-- Affichage du prix -->
+
             <div class="mb-4">
                 <label for="price" class="block text-sm font-semibold">Prix total</label>
-                <div class="text-lg font-bold">{{ totalPrice }} XPF</div> <!-- Affichage dynamique du prix -->
+                <div class="text-lg font-bold">{{ totalPrice }} XPF</div>
             </div>
 
-            <!-- Bouton Réserver -->
+
             <button type="submit"
                 class="w-full p-3 bg-gray-700 text-white shadow-md hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300">
                 Réserver
             </button>
-
-
-
 
         </form>
     </div>
