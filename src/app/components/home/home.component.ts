@@ -26,7 +26,6 @@ export class HomeComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    console.dir('Jome');
     this.roomService.rooms$.subscribe((data) => {
       if (data) this.rooms = data;
     });

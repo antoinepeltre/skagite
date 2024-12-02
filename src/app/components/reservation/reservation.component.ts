@@ -7,6 +7,7 @@ import { Reservation } from '../../models/Reservation';
 import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FeedbackMessage } from '../../models/FeedbackMessage';
 
 @Component({
   selector: 'app-reservation',
@@ -27,7 +28,7 @@ export class ReservationComponent {
   @Input() room: Room | undefined;
   totalPrice = 0;
   isLoading = false;
-  errorMessage: string | null = null;
+  feedbackMessage: FeedbackMessage | null = null;
 
   selectedDate: Date | null = null;
   startDate: string = '';
@@ -57,9 +58,14 @@ export class ReservationComponent {
       this.updateTotalPrice();
     });
 
-    if (this.rooms && this.rooms.length > 0) {
+    if (this.rooms && this.rooms.length > 0 && !this.room) {
       this.reservationForm.patchValue({ room: this.rooms[0].id });
       this.loadReservedDates(this.rooms[0].id);
+    }
+
+    if (this.room) {
+      this.reservationForm.patchValue({ room: this.room.id });
+      this.loadReservedDates(this.room.id);
     }
   }
 
@@ -83,20 +89,49 @@ export class ReservationComponent {
   onDateChange(event: any): void {
     if (this.selectedDates.length === 2) {
       const [start, end] = this.selectedDates;
+  
+      // Vérifiez si la plage de dates contient un lundi
       if (start && end && this.isInvalidDateRange(start, end)) {
-        this.showError('Réservation impossible : le gîte est fermé le lundi.');
+        this.showMessage({
+          type: 'error',
+          text: "Réservation impossible : le gîte est fermé le lundi.",
+        });
         this.resetDates();
         return;
       }
-
-      this.startDate = this.adjustDateForTimezone(start);
-      this.endDate = this.adjustDateForTimezone(end);
-      this.reservationForm.patchValue({
-        startDate: this.startDate,
-        endDate: this.endDate
-      });
+  
+      // Vérifiez si les dates sont déjà réservées
+      const roomId = this.reservationForm.value.room;
+      if (roomId && start && end) {
+        this.reservationService.checkAvailability(roomId, start.toISOString(), end.toISOString())
+          .then(isAvailable => {
+            if (!isAvailable) {
+              this.showMessage({
+                type: 'error',
+                text: 'Certaines des dates sélectionnées sont déjà réservées.',
+              });
+              this.resetDates();
+            } else {
+              this.startDate = this.adjustDateForTimezone(start);
+              this.endDate = this.adjustDateForTimezone(end);
+              this.reservationForm.patchValue({
+                startDate: this.startDate,
+                endDate: this.endDate,
+              });
+            }
+          })
+          .catch(error => {
+            console.error('Error checking availability:', error);
+            this.showMessage({
+              type: 'error',
+              text: 'Une erreur est survenue lors de la vérification de la disponibilité. Veuillez réessayer.',
+            });
+            this.resetDates();
+          });
+      }
     }
   }
+  
 
   adjustDateForTimezone(date: Date): string {
     const localDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
@@ -163,7 +198,6 @@ export class ReservationComponent {
       });
 
       this.isLoading = true;
-      this.errorMessage = null;
 
       try {
         const isAvailable = await this.reservationService.checkAvailability(
@@ -171,42 +205,53 @@ export class ReservationComponent {
         );
         if (isAvailable) {
           await this.reservationService.addReservation(reservation);
+          this.showMessage({
+            type: 'success',
+            text: "L'équipe Skagite vous remercie pour votre réservation et reviendra vers vous très prochainement !",
+          });
           this.loadReservedDates(reservation.roomId);
-          this.resetForm();
+          this.resetForm(reservation.roomId);
         } else {
-          this.showError('La chambre est indisponible pour les dates sélectionnées.');
+          this.showMessage({
+            type: 'error',
+            text: 'La chambre est indisponible pour les dates sélectionnées.',
+          });
         }
       } catch (error) {
-        this.showError('Une erreur s\'est produite lors du traitement de votre réservation. Veuillez réessayer.');
+        this.showMessage({
+          type: 'error',
+          text: 'Une erreur s\'est produite lors du traitement de votre réservation. Veuillez réessayer.',
+        });
       } finally {
         this.isLoading = false;
       }
     }
   }
 
-  resetForm(): void {
+  resetForm(roomId: number): void {
     this.reservationForm.reset({
-      room: '',
+      room: roomId,
       startDate: '',
       endDate: '',
       adults: 1,
       children: 0,
-      crib: false
+      crib: false,
     });
     this.date = undefined;
     this.startDate = '';
     this.endDate = '';
+    this.totalPrice = 0;
   }
 
-  showError(message: string): void {
-    this.errorMessage = message;
+  showMessage(message: FeedbackMessage): void {
+    this.feedbackMessage = message;
     setTimeout(() => {
-      this.errorMessage = null;
-    }, 2000);
+      this.feedbackMessage = null;
+    }, 5000);
   }
 
   resetDates(): void {
-    this.selectedDates = []; // Réinitialise les dates sélectionnées
+    this.selectedDates = [];
     this.startDate = '';
     this.endDate = '';
     this.reservationForm.patchValue({

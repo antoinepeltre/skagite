@@ -12,9 +12,14 @@ import { CommonModule } from '@angular/common';
 })
 export class HeaderComponent {
   @Input() rooms: Room[] = [];
+  isMenuOpen = false;
 
   constructor(private router: Router) {
 
+  }
+
+  toggleMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen;
   }
 
 

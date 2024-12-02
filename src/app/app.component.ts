@@ -30,7 +30,6 @@ export class AppComponent implements OnInit {
     // Subscribe to the rooms observable to get updates
     this.roomService.rooms$.subscribe((data) => {
       if (data) this.rooms = data;
-      console.dir(this.rooms);
     });
 
   }
