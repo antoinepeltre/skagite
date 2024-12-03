@@ -1,29 +1,9 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "package.json",
-        "use": "@vercel/static-build",
-        "config": { 
-          "distDir": "dist/skagite" 
-        }
-      }
-    ],
+    "buildCommand": "npm run build",
+    "outputDirectory": "dist/skagite",
+    "framework": "angular",
     "routes": [
-      {
-        "src": "^/(.*)$",
-        "headers": {
-          "Cache-Control": "no-cache",
-          "Content-Type": "text/html"
-        },
-        "dest": "/index.html"
-      },
-      {
-        "src": "/(.+\\.(js|css|json|ico|png|jpg|svg))$",
-        "headers": {
-          "Cache-Control": "max-age=31536000, immutable"
-        },
-        "dest": "/$1"
-      }
+        { "src": "/assets/(.*)", "headers": { "cache-control": "v-max-age=31536000, immutable" } },
+        { "src": "/(.*)", "dest": "/index.html" }
     ]
-  }
+}
