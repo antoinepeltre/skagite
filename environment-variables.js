@@ -46,7 +46,7 @@ export const environment = {
 `;
 
 // Chemin du fichier de destination
-const targetPath = path.join(__dirname, 'environments/environment.prod.ts');
+const targetPath = path.join(__dirname, 'src/environments/environment.prod.ts');
 
 // Crée le dossier 'environments' si nécessaire
 const dirPath = path.dirname(targetPath);
