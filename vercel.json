@@ -1,9 +1,10 @@
 {
+    "version": 2,
     "buildCommand": "npm run build",
     "outputDirectory": "dist/skagite",
-    "framework": "angular",
     "routes": [
-        { "src": "/assets/(.*)", "headers": { "cache-control": "v-max-age=31536000, immutable" } },
+        { "src": "/(.*)\\.(js|css|png|jpg|jpeg|gif|svg)", "headers": { "cache-control": "max-age=3600" } },
         { "src": "/(.*)", "dest": "/index.html" }
-    ]
+    ],
+    "framework": "angular"
 }
