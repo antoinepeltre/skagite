@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 // Spécifie où se trouve ton fichier environment.prod.ts
-const environmentFilePath = path.join(__dirname, 'src', 'environments', 'environment.ts');
+const environmentFilePath = path.join(__dirname, 'environments', 'environment.ts');
 
 // Lis le contenu du fichier environment.prod.ts
 let environmentFileContent = fs.readFileSync(environmentFilePath, 'utf-8');
