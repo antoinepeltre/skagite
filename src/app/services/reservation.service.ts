@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SupabaseService } from './supabase.service';
-import { Reservation } from '../models/Reservation';
+import { Reservation } from '../models/reservation.model';
 
 @Injectable({
   providedIn: 'root'

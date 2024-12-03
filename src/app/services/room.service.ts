@@ -2,7 +2,7 @@
 
 import { Injectable } from '@angular/core';
 import { SupabaseService } from './supabase.service';
-import { Room } from '../models/Room';
+import { Room } from '../models/room.model';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({

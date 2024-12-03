@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
 import { ReservationComponent } from "../reservation/reservation.component";
 import { FooterComponent } from "../footer/footer.component";
-import { Room } from '../../models/Room';
+import { Room } from '../../models/room.model';
 import { RoomService } from '../../services/room.service';
 import { CommonModule } from '@angular/common';
 import { Router } from "@angular/router";

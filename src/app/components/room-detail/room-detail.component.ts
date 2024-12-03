@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from "../footer/footer.component";
 import { ReservationComponent } from "../reservation/reservation.component";
-import { Room } from '../../models/Room';
+import { Room } from '../../models/room.model';
 import { RoomService } from '../../services/room.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';

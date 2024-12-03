@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./components/header/header.component";
 import { FooterComponent } from "./components/footer/footer.component";
-import { Room } from './models/Room';
+import { Room } from './models/room.model';
 import { RoomService } from './services/room.service';
 
 @Component({

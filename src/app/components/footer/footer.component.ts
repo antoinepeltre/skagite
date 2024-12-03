@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Room } from '../../models/Room';
+import { Room } from '../../models/room.model';
 import { CommonModule } from '@angular/common';
 
 @Component({

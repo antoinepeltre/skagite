@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Review } from '../../models/Review';
+import { Review } from '../../models/review.model';
 import { ReviewService } from '../../services/review.service';
 import { CommonModule } from '@angular/common';
 

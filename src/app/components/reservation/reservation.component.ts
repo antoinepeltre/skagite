@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Room } from '../../models/Room';
+import { Room } from '../../models/room.model';
 import { ReservationService } from '../../services/reservation.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FeedbackMessage } from '../../models/FeedbackMessage';
-import { Reservation } from '../../models/Reservation';
+import { FeedbackMessage } from '../../models/feedback-message.model';
+import { Reservation } from '../../models/reservation.model';
 
 @Component({
   selector: 'app-reservation',
