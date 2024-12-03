@@ -30,9 +30,13 @@
 const fs = require('fs');
 const path = require('path');
 
-console.log('SUPABASE_URL:', process.env.SUPABASE_URL);
-console.log('SUPABASE_KEY:', process.env.SUPABASE_KEY);
+// Assurez-vous que les variables d'environnement sont définies
+if (!process.env.SUPABASE_URL || !process.env.SUPABASE_KEY) {
+  console.error("Les variables d'environnement SUPABASE_URL et SUPABASE_KEY sont manquantes.");
+  process.exit(1); // Quitte le processus si les variables sont manquantes
+}
 
+// Crée le contenu du fichier environment.prod.ts
 const environment = `
 export const environment = {
   production: true,
@@ -41,12 +45,21 @@ export const environment = {
 };
 `;
 
-const targetPath = path.join(__dirname, 'environments/environment.prod.ts');
+// Chemin du fichier de destination
+const targetPath = path.join(__dirname, 'src/environments/environment.prod.ts');
 
+// Crée le dossier 'environments' si nécessaire
+const dirPath = path.dirname(targetPath);
+if (!fs.existsSync(dirPath)) {
+  fs.mkdirSync(dirPath, { recursive: true }); // Crée le dossier si nécessaire
+}
+
+// Écrit le contenu dans le fichier de destination
 fs.writeFileSync(targetPath, environment, (err) => {
   if (err) {
-    console.error('Error writing environment file', err);
+    console.error('Erreur lors de l\'écriture du fichier d\'environnement', err);
+    process.exit(1); // Quitte si l'écriture échoue
   } else {
-    console.log('Environment file generated');
+    console.log('Fichier d\'environnement généré avec succès');
   }
 });
