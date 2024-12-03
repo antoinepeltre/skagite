@@ -48,10 +48,23 @@ export const environment = {
 // Chemin du fichier de destination
 const targetPath = path.join(__dirname, 'src/environments/environment.prod.ts');
 
+// Log du chemin du fichier pour vérifier
+console.log('Chemin du fichier environment.prod.ts :', targetPath);
+
 // Crée le dossier 'environments' si nécessaire
 const dirPath = path.dirname(targetPath);
 if (!fs.existsSync(dirPath)) {
+  console.log(`Le dossier ${dirPath} n'existe pas. Création du dossier...`);
   fs.mkdirSync(dirPath, { recursive: true }); // Crée le dossier si nécessaire
+} else {
+  console.log(`Le dossier ${dirPath} existe déjà.`);
+}
+
+// Log de l'existence du fichier avant l'écriture
+if (fs.existsSync(targetPath)) {
+  console.log(`Le fichier ${targetPath} existe déjà.`);
+} else {
+  console.log(`Le fichier ${targetPath} n'existe pas et sera créé.`);
 }
 
 // Écrit le contenu dans le fichier de destination
