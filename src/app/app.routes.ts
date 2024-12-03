@@ -5,5 +5,6 @@ import { RoomDetailComponent } from './components/room-detail/room-detail.compon
 
 export const routes: Routes = [
     {path: '', component: HomeComponent, pathMatch: 'full' },
+    { path: '', redirectTo: '', pathMatch: 'full' },
     {path: 'rooms/:id', component: RoomDetailComponent }
 ];
