@@ -4,9 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "node -r dotenv/config mynode.js && ng serve",
-    "generate-env": "node environment-variables.js",
     "build": "ng build --configuration=production --base-href=/",
-    "vercel-build": "ng build --configuration=production",
+    "vercel-build": "node -r dotenv/config mynode.js && ng build --configuration=production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
