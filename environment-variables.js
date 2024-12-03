@@ -30,6 +30,7 @@
 const fs = require('fs');
 const path = require('path');
 
+// Ajouter des logs pour vérifier les variables d'environnement
 console.log('SUPABASE_URL:', process.env.SUPABASE_URL);
 console.log('SUPABASE_KEY:', process.env.SUPABASE_KEY);
 
@@ -41,14 +42,15 @@ export const environment = {
 };
 `;
 
-console.log('Target Path:', targetPath);
-
 const targetPath = path.join(__dirname, 'src/environments/environment.prod.ts');
+
+// Ajouter des logs pour vérifier le chemin cible après l'initialisation
+console.log('Target Path:', targetPath);
 
 fs.writeFileSync(targetPath, environment, (err) => {
   if (err) {
     console.error('Error writing environment file', err);
   } else {
-    console.log('Environment file generated');
+    console.log('Environment file generated successfully');
   }
 });
