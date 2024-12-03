@@ -103,6 +103,7 @@ export class ReservationComponent {
   onDateChange(): void {
     if (this.selectedDates.length === 2) {
       const [start, end] = this.selectedDates;
+      console.dir(this.selectedDates);
 
       if (this.isInvalidDateRange(start, end)) {
         this.showMessage({ type: 'error', text: "Réservation impossible : le gîte est fermé le lundi." });

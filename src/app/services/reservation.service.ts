@@ -14,13 +14,19 @@ export class ReservationService {
   constructor(private supabaseService: SupabaseService) { }
 
   async checkAvailability(roomId: number, startDate: string, endDate: string): Promise<boolean> {
+    const adjustedStartDate = new Date(startDate);
+    adjustedStartDate.setHours(adjustedStartDate.getHours() + 1);
+
+    const adjustedEndDate = new Date(endDate);
+    adjustedEndDate.setHours(adjustedEndDate.getHours() + 1);
+    
     try {
       const { data, error } = await this.supabaseService.client
         .from('reservations')
         .select('*')
         .eq('room_id', roomId)
-        .lte('start_date', endDate) 
-        .gte('end_date', startDate);
+        .lte('start_date', adjustedEndDate.toISOString()) 
+        .gte('end_date', adjustedStartDate.toISOString());
   
       if (error) {
         throw error;
