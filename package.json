@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "node environment-variables.js && ng build --configuration production",
+    "build": "echo 'Building the project...' && node -v && ng -v",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
