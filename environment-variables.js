@@ -30,7 +30,6 @@
 const fs = require('fs');
 const path = require('path');
 
-// Ajoute des logs pour vérifier les variables d'environnement
 console.log('SUPABASE_URL:', process.env.SUPABASE_URL);
 console.log('SUPABASE_KEY:', process.env.SUPABASE_KEY);
 
@@ -42,17 +41,12 @@ export const environment = {
 };
 `;
 
-// Modifie le chemin cible pour éviter le double 'src'
 const targetPath = path.join(__dirname, 'src/environments/environment.prod.ts');
-
-// Ajoute un log pour vérifier que le chemin cible est correct
-console.log('Target Path:', targetPath);
 
 fs.writeFileSync(targetPath, environment, (err) => {
   if (err) {
     console.error('Error writing environment file', err);
   } else {
-    console.log('Environment file generated successfully');
+    console.log('Environment file generated');
   }
 });
-
