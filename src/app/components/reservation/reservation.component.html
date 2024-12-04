@@ -46,13 +46,13 @@
                         <label for="startDate" class="block text-sm font-semibold">Date de début</label>
                         <input type="text" formControlName="startDate"
                             class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500"
-                            [value]="startDate" readonly>
+                            [value]="startDate | date:'dd/MM/yyyy'" readonly>
                     </div>
                     <div class="w-1/2 pl-2">
                         <label for="endDate" class="block text-sm font-semibold">Date de fin</label>
                         <input type="text" formControlName="endDate"
                             class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500"
-                            [value]="endDate" readonly>
+                            [value]="endDate | date:'dd/MM/yyyy'" readonly>
                     </div>
                 </div>
             </div>

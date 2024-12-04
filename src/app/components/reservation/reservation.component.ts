@@ -61,6 +61,7 @@ export class ReservationComponent {
 
   setupFormSubscriptions(): void {
     this.reservationForm.valueChanges.subscribe(() => {
+      this.checkMaxGuestValue();
       this.updateTotalPrice();
     });
   }
@@ -103,7 +104,6 @@ export class ReservationComponent {
   onDateChange(): void {
     if (this.selectedDates.length === 2) {
       const [start, end] = this.selectedDates;
-      console.dir(this.selectedDates);
 
       if (this.isInvalidDateRange(start, end)) {
         this.showMessage({ type: 'error', text: "Réservation impossible : le gîte est fermé le lundi." });
@@ -148,7 +148,7 @@ export class ReservationComponent {
   isInvalidDateRange(start: Date, end: Date): boolean {
     const currentDate = new Date(start);
     while (currentDate <= end) {
-      if (currentDate.getDay() === 1) { // Check if it's a Monday
+      if (currentDate.getDay() === 1) {
         return true;
       }
       currentDate.setDate(currentDate.getDate() + 1);
@@ -251,4 +251,12 @@ export class ReservationComponent {
     this.endDate = '';
     this.reservationForm.patchValue({ startDate: '', endDate: '' });
   }
+
+  checkMaxGuestValue() {
+    if (this.reservationForm.value.adults > 2 || this.reservationForm.value.children > 1) {
+        this.showMessage({ type: 'error', text: "Réservation impossible. Le nombre maximum d'adultes est de 2, le nombre maximum d'enfants est de 1." });
+    }
+  }
+
+  
 }

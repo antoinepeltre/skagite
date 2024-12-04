@@ -43,7 +43,6 @@ export class RoomDetailComponent implements OnInit {
 
         try {
             this.room = await this.roomService.fetchRoom(roomId);
-            console.dir(this.room);
         } catch (error) {
             this.error = error;
             console.error('Failed to fetch room:', error);
