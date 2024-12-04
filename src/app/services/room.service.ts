@@ -9,7 +9,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class RoomService {
-  private roomsSubject = new BehaviorSubject<Room[] | null>(null); // Initial state
+  private roomsSubject = new BehaviorSubject<Room[] | null>(null);
   rooms$ = this.roomsSubject.asObservable();
 
   constructor(private supabaseService: SupabaseService) { }
