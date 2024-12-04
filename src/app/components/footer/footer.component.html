@@ -1,19 +1,20 @@
 <footer class="bg-custom-gray text-custom-beige py-12">
-    <div class="container mx-auto flex justify-between items-center">
-        <div class="flex flex-col justify-center items-center text-center">
+    <div class="container mx-auto flex flex-col md:flex-row justify-center md:justify-between items-center text-center md:text-left">
+        <div class="flex flex-col justify-center items-center mb-6 md:mb-0 mt-6 md:mt-0">
             <h2 class="text-3xl font-bold md:text-4xl lg:text-5xl font-merriweather">Skagite</h2>
             <p class="text-lg md:text-xl font-light mt-2">Un lieu de détente et d'aventure</p>
         </div>
         
-        <div class="flex flex-col space-y-4">
+        <div class="flex flex-col space-y-4 mb-6 md:mb-0 mt-6 md:mt-0">
             <a *ngFor="let room of rooms" [href]="'rooms/' + room.id" class="hover:underline">{{room.name}}</a>
         </div>
         
-        <div class="flex flex-col space-y-4">
+        <div class="flex flex-col space-y-4 mt-6 md:mt-0">
             <p class="font-semibold">Contactez-nous</p>
             <a href="tel:+496170961709">Téléphone : +33 1 23 45 67 89</a>
-            <a href= "mailto: contact@skagite.ng">Email : contact&#64;skagite.nc</a>
+            <a href="mailto: contact@skagite.ng">Email : contact&#64;skagite.nc</a>
             <p>Adresse : 123 Rue du Lagon, Nouvelle-Calédonie</p>
         </div>
     </div>
 </footer>
+
