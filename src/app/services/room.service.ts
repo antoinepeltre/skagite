@@ -1,5 +1,3 @@
-// src/app/services/rooms.service.ts
-
 import { Injectable } from '@angular/core';
 import { SupabaseService } from './supabase.service';
 import { Room } from '../models/room.model';
