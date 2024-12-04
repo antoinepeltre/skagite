@@ -3,6 +3,17 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/********************************
+        FONTS 
+********************************/
+.font-merriweather {
+  font-family: 'Merriweather', serif;
+}
+
+/********************************
+        CALENDAR 
+********************************/
 .reserved-day {
   background-color: #dc2626 !important;
   border-radius: 100%;
@@ -26,10 +37,6 @@
   text-decoration: line-through;
 }
 
-.font-merriweather {
-  font-family: 'Merriweather', serif;
-}
-
 .p-datepicker-calendar {
   font-size: 10px !important;
 }
@@ -40,29 +47,29 @@
 }
 
 .custom-calendar .p-datepicker {
-  font-size: 0.75rem; /* Réduisez la taille de la police de l'ensemble du calendrier */
+  font-size: 0.75rem; 
 }
 
 .custom-calendar .p-datepicker .p-datepicker-header {
-  padding: 0.5rem; /* Ajustez le padding du header */
+  padding: 0.5rem; 
 }
 
 .custom-calendar .p-datepicker .p-datepicker-header .p-datepicker-title {
-  font-size: 0.875rem; /* Ajustez la taille de la police du titre */
+  font-size: 0.875rem; 
 }
 
 .custom-calendar .p-datepicker .p-datepicker-calendar .p-datepicker-day {
-  width: 2rem; /* Ajustez la taille des cellules de jour */
-  height: 2rem; /* Ajustez la hauteur des cellules de jour */
-  line-height: 2rem; /* Ajustez la hauteur de ligne des cellules de jour */
+  width: 2rem; 
+  height: 2rem; 
+  line-height: 2rem; 
 }
 
 .custom-calendar .p-datepicker .p-datepicker-calendar .p-datepicker-other-month,
 .custom-calendar .p-datepicker .p-datepicker-calendar .p-datepicker-date {
-  font-size: 0.75rem; /* Réduisez la taille de la police des dates */
+  font-size: 0.75rem; 
 }
 
 .custom-calendar .p-datepicker .p-datepicker-calendar td {
-  padding: 0.25rem; /* Ajustez le padding des cellules */
+  padding: 0.25rem; 
 }
 

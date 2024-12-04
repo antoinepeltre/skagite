@@ -31,9 +31,9 @@ export class RoomDetailComponent implements OnInit {
         this.route.paramMap.subscribe(params => {
             const roomId = params.get('id');
             if (roomId) {
-              this.fetchRoom(roomId);
+                this.fetchRoom(roomId);
             }
-          });
+        });
 
     }
 

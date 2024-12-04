@@ -63,15 +63,15 @@ export class ReservationService {
         throw error;
       }
 
-      // Transformer les réservations en dates réservées
+      // Convert reservations into reserved dates
       const reservedDates: Date[] = data.map((reservation: any) => {
         const startDate = new Date(reservation.start_date);
         const endDate = new Date(reservation.end_date);
         let dates = [];
         
-        // Remplir le tableau avec toutes les dates entre startDate et endDate
+        // Fill the table with all dates between startDate and endDate
         for (let date = new Date(startDate); date <= endDate; date.setDate(date.getDate() + 1)) {
-          dates.push(new Date(date)); // Ajouter chaque date réservée au tableau
+          dates.push(new Date(date)); // Add each reserved date to the table
         }
         
         return dates;
@@ -88,7 +88,7 @@ export class ReservationService {
     const start = new Date(startDate);
     const end = new Date(endDate);
 
-    // Vérification de la validité des dates
+    // Check validity of dates
     const timeDiff = end.getTime() - start.getTime();
     const numberOfNights = timeDiff / (1000 * 3600 * 24);
 
@@ -96,19 +96,19 @@ export class ReservationService {
       throw new Error('La durée de la réservation doit être d\'au moins 1 nuit.');
     }
 
-    // Vérifie que la réservation ne couvre pas un lundi
+    // Check that the reservation does not cover a Monday
     if (this.isDateInRange(start, end, 1)) {
       throw new Error('Le gîte est fermé le lundi. Veuillez choisir d\'autres dates.');
     }
 
     let totalPrice = 0;
 
-    // Calcul du prix pour chaque nuit
+    // Price calculation for each night
     for (let i = 0; i < numberOfNights; i++) {
       const currentDay = new Date(start);
       currentDay.setDate(currentDay.getDate() + i);
 
-      // Vérifie si c'est un week-end (samedi ou dimanche)
+      // Check if it's a weekend (Saturday or Sunday)
       if (currentDay.getDay() === 0 || currentDay.getDay() === 6) {
         totalPrice += this.weekendPrice;
       } else {
@@ -116,7 +116,7 @@ export class ReservationService {
       }
     }
 
-    // Ajouter le supplément pour le lit parapluie, si sélectionné
+    // Add supplement for umbrella bed, if selected
     if (crib) {
       totalPrice += this.cribPrice;
     }
@@ -128,7 +128,7 @@ export class ReservationService {
     const currentDate = new Date(start);
     while (currentDate <= end) {
       if (currentDate.getDay() === targetDay) {
-        return true; // Lundi trouvé dans la plage de dates
+        return true; // Monday found in date range
       }
       currentDate.setDate(currentDate.getDate() + 1);
     }

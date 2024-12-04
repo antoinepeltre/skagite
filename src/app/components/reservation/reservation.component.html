@@ -2,10 +2,10 @@
     <h2 class="text-lg font-bold mb-4 text-center">Réservez votre chambre</h2>
 
     <div class="overflow-y-auto max-h-[80vh] p-2">
-        <!-- Formulaire de réservation -->
+        <!-- Form booking -->
         <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
 
-            <!-- Choix de la chambre -->
+            <!-- Room Choice -->
             <div class="mb-4">
                 <label for="room" class="block text-xs font-semibold">Choisissez votre chambre</label>
                 <div *ngIf="rooms && !room">
@@ -77,7 +77,7 @@
 
 
             <div class="mb-4 relative mt-4">
-                <label for="crib" class="block text-xs font-semibold">Lit parapluie
+                <label for="crib" class="block text-xs font-semibold mb-2">Lit parapluie
                     <span class="relative group">
                         <svg class="w-4 h-4 inline-block text-gray-500 cursor-pointer" fill="currentColor"
                             viewBox="0 0 20 20">
@@ -93,7 +93,7 @@
                 </label>
                 <div class="flex items-center">
                     <input type="checkbox" id="crib" formControlName="crib" class="mr-2 text-xs" />
-                    <label for="crib" class="text-xs mt-2">Ajouter (1000 XPF)</label>
+                    <label for="crib" class="text-xs">Ajouter (1000 XPF)</label>
                 </div>
             </div>
 
