@@ -1,27 +1,49 @@
-# Skagite
+# Skagite - Booking Management for a Guesthouse
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.1.
+Welcome to the **Skagite** project repository! This is a web application designed to manage bookings for three rooms in a fictional guesthouse.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Homepage**: General presentation of the guesthouse.
+- **Room Details**: Detailed descriptions and information for each room.
+- **Booking Panel**: Select dates and book rooms directly.
+- **Customer Reviews**: Display of guest reviews retrieved from the database.
 
-## Code scaffolding
+## Technologies Used
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Front-end**: Angular 18
+- **Styling**: Tailwind CSS
+- **Back-end**: Supabase (API and database management)
+- **Hosting**: Vercel
 
-## Build
+## Run the Application with Docker
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+To run the project locally using Docker, follow these steps:
 
-## Running unit tests
+1. **Clone the repository:**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+    git clone https://github.com/antoinepeltre/skagite.git  
+    cd skagite
 
-## Running end-to-end tests
+2. **Build and run the Docker container:**
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+    docker-compose up --build
 
-## Further help
+3. **Access the application:**
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+    The application will be available at [http://localhost:4200].
+
+## Live Demo and Repository
+
+- **Live Website**: [Skagite on Vercel](https://skagite-i29ga3uw3-antoines-projects-8f75dbf3.vercel.app/)
+- **GitHub Repository**: [Skagite on GitHub](https://github.com/antoinepeltre/skagite)
+
+## Notes
+
+This project was developed as part of a technical test, aiming to demonstrate my skills in both front-end and back-end development.
+
+Feel free to reach out if you have any questions or feedback!
+
+## Author
+
+[Antoine Peltre](https://github.com/antoinepeltre)
