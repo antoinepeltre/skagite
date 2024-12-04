@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node -r dotenv/config mynode.js && ng serve",
-    "build": "node -r dotenv/config mynode.js && ng build --configuration=production --base-href=/",
-    "vercel-build": "node -r dotenv/config mynode.js && ng build --configuration=production",
+    "start": "node -r dotenv/config environment-variables.js && ng serve",
+    "build": "node -r dotenv/config environment-variables.js && ng build --configuration=production --base-href=/",
+    "vercel-build": "node -r dotenv/config environment-variables.js && ng build --configuration=production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

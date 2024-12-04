@@ -10,7 +10,7 @@ RUN npm install
 
 COPY . .
 
-RUN node -r dotenv/config mynode.js
+RUN node -r dotenv/config environment-variables.js
 
 EXPOSE 4200
 
