@@ -36,14 +36,9 @@ To run the project locally using Docker, follow these steps:
 ## Live Demo and Repository
 
 - **Live Website**: [Skagite on Vercel](https://skagite-i29ga3uw3-antoines-projects-8f75dbf3.vercel.app/)
-- **GitHub Repository**: [Skagite on GitHub](https://github.com/antoinepeltre/skagite)
 
 ## Notes
 
 This project was developed as part of a technical test, aiming to demonstrate my skills in both front-end and back-end development.
 
 Feel free to reach out if you have any questions or feedback!
-
-## Author
-
-[Antoine Peltre](https://github.com/antoinepeltre)
