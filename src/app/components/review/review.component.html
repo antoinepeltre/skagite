@@ -5,9 +5,9 @@
       <span class="text-yellow-400 mr-2 font-bold">
         {{ review.rating }} / 5
       </span>
-      <p class="text-lg font-semibold text-custom-gray">{{ review.reviewer_name }}</p>
+      <p class="font-semibold text-custom-gray">{{ review.reviewer_name }}</p>
     </div>
-    <p class="text-lg ">"{{ review.comment }}"</p>
+    <p class="text-sm">"{{ review.comment }}"</p>
     <p class="text-sm text-custom-gray mb-4 mt-4 text-right">{{ review.createdAt | date:'dd/MM/yyyy' }}</p>
   </div>
 </div>

@@ -29,3 +29,40 @@
 .font-merriweather {
   font-family: 'Merriweather', serif;
 }
+
+.p-datepicker-calendar {
+  font-size: 10px !important;
+}
+
+.custom-calendar {
+  width: 100%;
+  overflow: hidden;
+}
+
+.custom-calendar .p-datepicker {
+  font-size: 0.75rem; /* Réduisez la taille de la police de l'ensemble du calendrier */
+}
+
+.custom-calendar .p-datepicker .p-datepicker-header {
+  padding: 0.5rem; /* Ajustez le padding du header */
+}
+
+.custom-calendar .p-datepicker .p-datepicker-header .p-datepicker-title {
+  font-size: 0.875rem; /* Ajustez la taille de la police du titre */
+}
+
+.custom-calendar .p-datepicker .p-datepicker-calendar .p-datepicker-day {
+  width: 2rem; /* Ajustez la taille des cellules de jour */
+  height: 2rem; /* Ajustez la hauteur des cellules de jour */
+  line-height: 2rem; /* Ajustez la hauteur de ligne des cellules de jour */
+}
+
+.custom-calendar .p-datepicker .p-datepicker-calendar .p-datepicker-other-month,
+.custom-calendar .p-datepicker .p-datepicker-calendar .p-datepicker-date {
+  font-size: 0.75rem; /* Réduisez la taille de la police des dates */
+}
+
+.custom-calendar .p-datepicker .p-datepicker-calendar td {
+  padding: 0.25rem; /* Ajustez le padding des cellules */
+}
+

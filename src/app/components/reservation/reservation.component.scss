@@ -18,3 +18,13 @@
         transform: rotate(360deg);
     }
 }
+
+.custom-calendar {
+    width: 100%;
+    overflow: hidden;
+}
+
+.treetableDate .ui-widget-content{
+    width: 80% !important; // or in pixel depends how much width you want.
+}
+
