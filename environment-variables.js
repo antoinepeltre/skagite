@@ -10,17 +10,25 @@ if (!process.env.SUPABASE_URL || !process.env.SUPABASE_KEY) {
   process.exit(1);
 }
 
-// Contenu du fichier d'environnement
-const envFile = `export const environment = {
+// Contenu des fichiers d'environnement
+const envFileProd = `export const environment = {
     production: true,
     SUPABASE_URL: '${process.env.SUPABASE_URL}',
     SUPABASE_KEY: '${process.env.SUPABASE_KEY}',
 };
 `;
 
-// Chemin du fichier cible
+const envFileDev = `export const environment = {
+    production: false,
+    SUPABASE_URL: '${process.env.SUPABASE_URL}',
+    SUPABASE_KEY: '${process.env.SUPABASE_KEY}',
+};
+`;
+
+// Chemins des fichiers
 const environmentsDir = path.join(__dirname, 'src/environments');
-const targetPath = path.join(environmentsDir, 'environment.prod.ts');
+const targetPathProd = path.join(environmentsDir, 'environment.prod.ts');
+const targetPathDev = path.join(environmentsDir, 'environment.ts');
 
 // Vérification et création du dossier environments si nécessaire
 if (!fs.existsSync(environmentsDir)) {
@@ -28,12 +36,22 @@ if (!fs.existsSync(environmentsDir)) {
   console.log(successColor, `${checkSign} Directory 'environments' created.`);
 }
 
-// Écriture du fichier environment.prod.ts
-fs.writeFile(targetPath, envFile, (err) => {
+// Écriture des fichiers environment.prod.ts
+fs.writeFile(targetPathProd, envFileProd, (err) => {
   if (err) {
     console.error(err);
     throw err;
   } else {
     console.log(successColor, `${checkSign} Successfully generated environment.prod.ts`);
+  }
+});
+
+// Écriture des fichiers environment.ts
+fs.writeFile(targetPathDev, envFileDev, (err) => {
+  if (err) {
+    console.error(err);
+    throw err;
+  } else {
+    console.log(successColor, `${checkSign} Successfully generated environment.ts`);
   }
 });
