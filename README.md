@@ -22,14 +22,30 @@ To run the project locally using Docker, follow these steps:
 
 1. **Clone the repository:**
 
-    git clone https://github.com/antoinepeltre/skagite.git  
+    ```bash
+    git clone https://github.com/antoinepeltre/skagite.git
     cd skagite
+    ```
 
-2. **Build and run the Docker container:**
+2. **Run the environment setup script:**
 
+    Before running the Docker container, execute the following command to fetch the required environment variables:
+
+    ```bash
+    ./fetch-env.sh
+    ```
+
+    The script will fetch the environment variables from a GitHub Gist and save them in the `.env` file.
+
+3. **Build and run the Docker container:**
+
+    Once the environment variables are set up, you can build and start the Docker container with:
+
+    ```bash
     docker-compose up --build
+    ```
 
-3. **Access the application:**
+4. **Access the application:**
 
     The application will be available at [http://localhost:4200].
 
