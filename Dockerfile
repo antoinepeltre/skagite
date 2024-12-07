@@ -17,6 +17,8 @@ RUN ls -l ./fetch-env.sh
 # Donner les permissions d'exécution au script fetch-env.sh
 RUN chmod +x ./fetch-env.sh
 
+COPY .env .env
+
 COPY . .
 
 # Nous ne passons plus par dotenv/config ici car le fichier .env est généré par GitHub Actions
