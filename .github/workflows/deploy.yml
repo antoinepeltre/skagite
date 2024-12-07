@@ -19,6 +19,7 @@ jobs:
         run: |
           echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
           echo "SUPABASE_KEY=${{ secrets.SUPABASE_KEY }}" >> .env
+          cat .env  # Vérifie le contenu du fichier .env généré
 
       # 3. Installer les dépendances Node.js (version par défaut)
       - name: Install dependencies
