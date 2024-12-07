@@ -31,4 +31,4 @@ jobs:
 
       # 5. Démarrer les conteneurs
       - name: Start Docker containers
-        run: docker-compose up -d
+        run: docker-compose up 
