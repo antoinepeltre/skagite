@@ -1,33 +1,48 @@
-name: Deploy to Docker
+name: Deploy Application
 
 on:
   push:
     branches:
-      - master  # Déclenche le workflow sur un push vers la branche master
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    # Étape 1: Vérifier le code et récupérer les secrets
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      # Injecter les secrets dans un fichier .env
-      - name: Set up environment variables
-        run: |
-          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
-          echo "SUPABASE_KEY=${{ secrets.SUPABASE_KEY }}" >> .env
-          cat .env  # Vérifier le contenu du fichier .env pour s'assurer qu'il est bien créé
+    # Étape 2: Ajouter les secrets GitHub dans le fichier .env
+    - name: Set up environment variables
+      run: |
+        echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
+        echo "SUPABASE_KEY=${{ secrets.SUPABASE_KEY }}" >> .env
 
-      # Étape pour configurer Docker et Docker Compose
-      - name: Set up Docker
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker.io
-          sudo apt-get install -y docker-compose
+    # Étape 3: Corriger l'installation de Docker et containerd
+    - name: Install Docker and containerd
+      run: |
+        # Supprimer containerd s'il existe déjà
+        sudo apt-get remove -y containerd
+        # Mettre à jour et corriger les paquets manquants
+        sudo apt-get update --fix-missing
+        sudo apt-get upgrade -y
+        # Installer Docker, Docker Compose et containerd.io
+        sudo apt-get install -y docker.io docker-compose containerd.io
 
-      # Construire et démarrer le conteneur Docker
-      - name: Build and deploy Docker container
-        run: |
-          docker-compose up --build
+    # Étape 4: Installer les dépendances Node.js et autres
+    - name: Install dependencies
+      run: |
+        npm install
+
+    # Étape 5: Exécuter le script pour gérer les variables d'environnement
+    - name: Run environment variables script
+      run: node -r dotenv/config environment-variables.js
+
+    # Étape 6: Build & Run Docker container (si nécessaire)
+    - name: Build and Run Docker container
+      run: |
+        docker-compose up --build -d
+
+    # Optionnel : Tu peux ajouter des étapes pour tester ton application si besoin
