@@ -10,6 +10,8 @@ RUN npm install
 
 COPY . .
 
+COPY .env .env
+
 # Nous ne passons plus par dotenv/config ici car le fichier .env est généré par GitHub Actions
 RUN node environment-variables.js
 
