@@ -1,0 +1,33 @@
+name: Build and Deploy Angular App
+
+on:
+  push:
+    branches:
+      - master  # Déclenchement à chaque push sur la branche master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout du code source
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # 2. Récupérer les variables d'environnement depuis GitHub Secrets
+      - name: Set up environment variables
+        run: |
+          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
+          echo "SUPABASE_KEY=${{ secrets.SUPABASE_KEY }}" >> .env
+
+      # 3. Installer les dépendances Node.js (version par défaut)
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Build de l'image Docker
+      - name: Build Docker image
+        run: docker-compose build
+
+      # 5. Démarrer les conteneurs
+      - name: Start Docker containers
+        run: docker-compose up -d
